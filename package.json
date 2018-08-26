@@ -5,7 +5,9 @@
   "main": "index.js",
   "dependencies": {
     "@types/express": "^4.16.0",
+    "@types/lodash": "^4.14.116",
     "express": "^4.16.3",
+    "lodash": "^4.17.10",
     "npm": "^6.4.0",
     "ts-loader": "^4.5.0",
     "typescript": "^3.0.1",
@@ -16,7 +18,8 @@
   },
   "scripts": {
     "webpack:server": "webpack --config webpack.server.config.js",
-    "webpack:server:watch": "npm run webpack:server -- --watch"
+    "webpack:server:watch": "npm run webpack:server -- --watch",
+    "start:server": "cd dist && nodemon server.js"
   },
   "author": "Masive",
   "license": "ISC"
