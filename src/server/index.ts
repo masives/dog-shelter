@@ -47,7 +47,7 @@ const animals: Array<Animal> = [
     photos: ['bigos_1.jpg', 'bigos.jpg']
   }
 ];
-const id = 2;
+let id = 2;
 
 app.get('/animals', (req, res) => {
   res.send(animals);
@@ -60,6 +60,26 @@ app.get('/animals/:id', (req, res) => {
   });
   searchedAnimal ? res.send(searchedAnimal) : res.status(404).send('animal not found');
 });
+
+app.post('/animals', (req,res) => {
+  const newId = id;
+  id += 1;
+  const newAnimal = req.body;
+  newAnimal.id = newId;
+  animals.push(newAnimal);
+  res.send(newAnimal);
+})
+
+app.put('/animals/:id', (req, res) => {
+  const update = req.body;
+  if(update.id) {
+    delete update.id
+  }
+
+  const animalIndex = _.findIndex(animals,{id: req.params.id})
+  const updatedAnimal = _.assign(animals[animalIndex], update)
+  res.send(updatedAnimal);
+})
 
 app.listen(port);
 console.log(`app started on port ${port}`);
