@@ -4,6 +4,7 @@ import Animal from '../../../types/Animal';
 
 const apiRouter = express.Router();
 
+//mocked animals schema
 const animals: Array<Animal> = [
   {
     id: '0',
@@ -57,6 +58,17 @@ apiRouter
     const animalIndex = _.findIndex(animals, { id: req.params.id });
     const updatedAnimal = _.assign(animals[animalIndex], update);
     res.send(updatedAnimal);
+  })
+  .delete((req, res) => {
+    const animalIndex = _.findIndex(animals, { id: req.params.id });
+    if (!animalIndex) {
+      res.status(404).send('Animal not found');
+      return;
+    }
+
+    const removedAnimal = animals.splice(animalIndex);
+
+    res.send(removedAnimal);
   });
 
 export default apiRouter;
