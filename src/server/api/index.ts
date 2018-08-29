@@ -28,34 +28,35 @@ const animals: Array<Animal> = [
 ];
 let id = 2;
 
-apiRouter.get('/animals', (req, res) => {
-  res.send(animals);
-});
+apiRouter
+  .route('/animals')
+  .get((req, res) => {
+    res.send(animals);
+  })
+  .post((req, res) => {
+    const newId = id;
+    id += 1;
+    const newAnimal = req.body;
+    newAnimal.id = newId;
+    animals.push(newAnimal);
+    res.send(newAnimal);
+  });
 
-apiRouter.get('/animals/:id', (req, res) => {
-  const currentId: String = req.params.id;
-  const searchedAnimal = _.find(animals, { id: req.params.id });
-  searchedAnimal ? res.send(searchedAnimal) : res.status(404).send('animal not found');
-});
+apiRouter
+  .route('/animals/:id')
+  .get((req, res) => {
+    const searchedAnimal = _.find(animals, { id: req.params.id });
+    searchedAnimal ? res.send(searchedAnimal) : res.status(404).send('animal not found');
+  })
+  .put((req, res) => {
+    const update = req.body;
+    if (update.id) {
+      delete update.id;
+    }
 
-apiRouter.post('/animals', (req, res) => {
-  const newId = id;
-  id += 1;
-  const newAnimal = req.body;
-  newAnimal.id = newId;
-  animals.push(newAnimal);
-  res.send(newAnimal);
-});
-
-apiRouter.put('/animals/:id', (req, res) => {
-  const update = req.body;
-  if (update.id) {
-    delete update.id;
-  }
-
-  const animalIndex = _.findIndex(animals, { id: req.params.id });
-  const updatedAnimal = _.assign(animals[animalIndex], update);
-  res.send(updatedAnimal);
-});
+    const animalIndex = _.findIndex(animals, { id: req.params.id });
+    const updatedAnimal = _.assign(animals[animalIndex], update);
+    res.send(updatedAnimal);
+  });
 
 export default apiRouter;
