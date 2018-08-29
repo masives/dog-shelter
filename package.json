@@ -17,8 +17,8 @@
     "webpack-cli": "^3.1.0"
   },
   "scripts": {
-    "webpack:server": "webpack --config webpack.server.config.js",
-    "webpack:server:watch": "npm run webpack:server -- --watch",
+    "dev:server": "webpack --config webpack.server.config.js",
+    "dev:server:watch": "npm run dev:server -- --watch",
     "start:server": "cd dist && nodemon server.js"
   },
   "author": "Masive",
