@@ -6,6 +6,7 @@
   "dependencies": {
     "@types/express": "^4.16.0",
     "@types/lodash": "^4.14.116",
+    "axios": "^0.18.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",
@@ -27,6 +28,7 @@
   },
   "scripts": {
     "dev:client": "webpack --env.mode development",
+    "dev:client:watch": "npm run dev:client -- --watch",
     "dev:server": "webpack --config webpack.server.config.js",
     "dev:server:watch": "npm run dev:server -- --watch",
     "start:server": "cd dist && nodemon server.js"
