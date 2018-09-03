@@ -13,6 +13,21 @@ const getAnimalsList = () => {
     })
 }
 
+const getSingleAnimal = (id) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`http://localhost:3000/api/animals/${id}`)
+            .then((response) => {
+                resolve(response.data)
+            })
+            .catch((response) => {
+                reject(response);
+            })
+    })
+}
+
+
 export {
-    getAnimalsList
+    getAnimalsList,
+    getSingleAnimal
 };

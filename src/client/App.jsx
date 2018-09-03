@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AnimalsList from './components/AnimalsList/index';
+import AnimalDetails from './components/AnimalDetails/index';
 
 class App extends Component {
   render() {
@@ -7,6 +8,8 @@ class App extends Component {
       <div>
         <header>Guben morgen</header>
         <AnimalsList />
+        <h1>single animal</h1>
+        <AnimalDetails id="1" />
       </div>
     );
   }
