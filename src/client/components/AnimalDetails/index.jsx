@@ -6,12 +6,14 @@ class AnimalDetails extends Component {
   state = {
     animal: {}
   };
+
   static propTypes = {
     id: string.isRequired
   };
+
   componentDidMount() {
-    getSingleAnimal(this.props.id).then(animal => {
-      console.log(animal);
+    const { id } = this.props;
+    getSingleAnimal(id).then(animal => {
       this.setState({ animal });
     });
   }

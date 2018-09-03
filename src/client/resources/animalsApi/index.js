@@ -1,7 +1,6 @@
 import axios from 'axios'
 
-const getAnimalsList = () => {
-    return new Promise((resolve, reject) => {
+const getAnimalsList = () => new Promise((resolve, reject) => {
         axios
             .get('http://localhost:3000/api/animals')
             .then((response) => {
@@ -11,10 +10,8 @@ const getAnimalsList = () => {
                 reject(response);
             })
     })
-}
 
-const getSingleAnimal = (id) => {
-    return new Promise((resolve, reject) => {
+const getSingleAnimal = (id) => new Promise((resolve, reject) => {
         axios
             .get(`http://localhost:3000/api/animals/${id}`)
             .then((response) => {
@@ -24,7 +21,6 @@ const getSingleAnimal = (id) => {
                 reject(response);
             })
     })
-}
 
 
 export {

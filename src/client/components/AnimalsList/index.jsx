@@ -5,6 +5,7 @@ class AnimalList extends Component {
   state = {
     animals: []
   };
+
   componentDidMount() {
     getAnimalsList().then(animals => {
       this.setState({ animals });
@@ -29,8 +30,7 @@ class AnimalList extends Component {
             </tr>
           </thead>
           <tbody>
-            {animals.map(animal => {
-              return (
+            {animals.map(animal => (
                 <tr key={animal.id}>
                   <td>{animal.id}</td>
                   <td>{animal.name}</td>
@@ -42,8 +42,7 @@ class AnimalList extends Component {
                   <td>{animal.race}</td>
                   <td>{animal.status}</td>
                 </tr>
-              );
-            })}
+              ))}
           </tbody>
         </table>
       </div>
