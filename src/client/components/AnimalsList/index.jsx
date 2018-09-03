@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { getAnimalsList } from '../../resources/animalsApi';
 
 class AnimalList extends Component {
   state = {
     animals: []
   };
   componentDidMount() {
-    axios
-      .get('http://localhost:3000/api/animals')
-      .then(result => {
-        console.log(result.data);
-        this.setState({ animals: result.data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    getAnimalsList().then(animals => {
+      this.setState({ animals });
+    });
   }
 
   render() {
