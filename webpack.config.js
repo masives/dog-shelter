@@ -11,6 +11,7 @@ module.exports = ({
 
     return {
         mode,
+        devtool: "cheap-eval-source-map",
         entry: "./src/client/entry.jsx",
         output: {
             path: path.join(__dirname, 'dist/public'),
