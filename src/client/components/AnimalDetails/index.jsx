@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
-import { string } from 'prop-types';
+import { string, shape } from 'prop-types';
 import { getSingleAnimal } from '../../resources/animalsApi';
 
+// const AnimalDetailsRouteParamShape = shape({})
 class AnimalDetails extends Component {
   state = {
     animal: {}
   };
 
   static propTypes = {
-    id: string.isRequired
+    match: shape({
+      params: shape({
+        id: string
+      })
+    }).isRequired
   };
 
   componentDidMount() {
-    const { id } = this.props;
-    getSingleAnimal(id).then(animal => {
+    const { match } = this.props;
+    getSingleAnimal(match.params.id).then(animal => {
       this.setState({ animal });
     });
   }

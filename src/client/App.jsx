@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { HashRouter, Route, Link } from 'react-router-dom';
 import AnimalsList from './components/AnimalsList/index';
 import AnimalDetails from './components/AnimalDetails/index';
 
@@ -13,9 +14,15 @@ class App extends Component {
     return (
       <div>
         <header>Guben morgen</header>
-        <AnimalsList />
-        <h1>single animal</h1>
-        <AnimalDetails id={currentAnimal} />
+        <HashRouter>
+          <section>
+            <div>
+              <Link to="/Lista psiaków">Lista</Link>
+            </div>
+            <Route path="/" exact component={AnimalsList} />
+            <Route path="/animals/:id" component={AnimalDetails} />
+          </section>
+        </HashRouter>
       </div>
     );
   }
