@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { string, shape } from 'prop-types';
 import { createNewAnimal } from '../../resources/animalsApi';
 import Input from '../FormElements/Input';
+import RadioGroup from '../FormElements/RadioGroup';
 
+// todo - form settings should be extracted to config
 const FORM_SCHEMA = [
   {
     label: 'Imie',
@@ -13,6 +15,51 @@ const FORM_SCHEMA = [
     label: 'Wiek',
     type: 'Number',
     fieldName: 'age'
+  },
+  {
+    label: 'Rasa',
+    type: 'RadioGroup',
+    fieldName: 'race',
+    options: [
+      {
+        label: 'Pies',
+        value: 'dog'
+      },
+      {
+        label: 'Kot',
+        value: 'cat'
+      }
+    ]
+  },
+  {
+    label: 'Preferowane miejsce zamieszkania',
+    type: 'RadioGroup',
+    fieldName: 'living-place',
+    options: [
+      {
+        label: 'Dom',
+        value: 'house'
+      },
+      {
+        label: 'Mieszkanie',
+        value: 'apartment'
+      }
+    ]
+  },
+  {
+    label: 'Status',
+    type: 'RadioGroup',
+    fieldName: 'status',
+    options: [
+      {
+        label: 'Do wzięcia',
+        value: 'for-grabs'
+      },
+      {
+        label: 'Zabrany',
+        value: 'taken'
+      }
+    ]
   }
 ];
 // todo - wynieść shape na zewnątrz
@@ -74,45 +121,24 @@ class AnimalDetails extends Component {
                 />
               );
             }
+            if (input.type === 'RadioGroup') {
+              formItem = (
+                <RadioGroup
+                  label={input.label}
+                  fieldName={input.fieldName}
+                  onChange={this.onChange}
+                  key={input.fieldName}
+                  options={input.options}
+                />
+              );
+            }
             return formItem;
           })}
-          {/* <div>
-            Rasa
-            <label htmlFor="animal-edit-dog">
-              <input type="radio" name="animal-edit-race" id="animal-edit-dog" />
-              Pies
-            </label>
-            <label htmlFor="animal-edit-cat">
-              <input type="radio" name="animal-edit-race" id="animal-edit-cat" />
-              Kot
-            </label>
-          </div>
-          <div>
-            Preferowane miejsce zamieszkania
-            <label htmlFor="animal-edit-home">
-              <input type="radio" name="animal-edit-home" id="animal-edit-home" />
-              Dom
-            </label>
-            <label htmlFor="animal-edit-block">
-              <input type="radio" name="animal-edit-block" id="animal-edit-block" />
-              Mieszkanie w bloku
-            </label>
-          </div>
+          {/*
           <label htmlFor="description">
             Opis
             <textarea name="description" id="description" cols="30" rows="10" />
-          </label>
-          <div>
-            Status
-            <label htmlFor="animal-edit-free">
-              <input type="radio" name="animal-edit-taken" id="animal-edit-free" />
-              Do wzięcia
-            </label>
-            <label htmlFor="animal-edit-taken">
-              <input type="radio" name="animal-edit-taken" id="animal-edit-taken" />
-              Oddany
-            </label>
-          </div> */}
+          </label> */}
           <input type="submit" value="Wyślij" />
         </form>
       </div>
