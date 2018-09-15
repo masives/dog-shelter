@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { string, shape } from 'prop-types';
 import { createNewAnimal } from '../../resources/animalsApi';
-import Input from '../FormElements/Input';
-import RadioGroup from '../FormElements/RadioGroup';
-import Textarea from '../FormElements/Textarea/index';
+import FormElementsFactory from '../FormElements/index';
 
 // todo - form settings should be extracted to config
 const FORM_SCHEMA = [
@@ -70,7 +68,7 @@ const FORM_SCHEMA = [
 ];
 // todo - wynieść shape na zewnątrz
 // const AnimalDetailsRouteParamShape = shape({})
-class AnimalDetails extends Component {
+class AnimalEdit extends Component {
   state = {
     name: ''
   };
@@ -109,52 +107,9 @@ class AnimalDetails extends Component {
         <h1>chyba działo</h1>
         <h1>{match.params.id}</h1>
         <form onSubmit={this.onSubmitRequest}>
-          {FORM_SCHEMA.map(input => {
-            let formItem;
-            if (input.type === 'Input') {
-              formItem = (
-                <Input label={input.label} fieldName={input.fieldName} onChange={this.onChange} key={input.fieldName} />
-              );
-            }
-            if (input.type === 'Number') {
-              formItem = (
-                <Input
-                  label={input.label}
-                  fieldName={input.fieldName}
-                  onChange={this.onChange}
-                  key={input.fieldName}
-                  type="number"
-                />
-              );
-            }
-            if (input.type === 'RadioGroup') {
-              formItem = (
-                <RadioGroup
-                  label={input.label}
-                  fieldName={input.fieldName}
-                  onChange={this.onChange}
-                  key={input.fieldName}
-                  options={input.options}
-                />
-              );
-            }
-            if (input.type === 'Textarea') {
-              formItem = (
-                <Textarea
-                  label={input.label}
-                  fieldName={input.fieldName}
-                  onChange={this.onChange}
-                  key={input.fieldName}
-                />
-              );
-            }
-            return formItem;
-          })}
-          {/*
-          <label htmlFor="description">
-            Opis
-            <textarea name="description" id="description" cols="30" rows="10" />
-          </label> */}
+          {FORM_SCHEMA.map(input => (
+            <FormElementsFactory inputConfig={input} onChange={this.onChange} key={input.label} />
+          ))}
           <input type="submit" value="Wyślij" />
         </form>
       </div>
@@ -162,7 +117,7 @@ class AnimalDetails extends Component {
   }
 }
 
-export default AnimalDetails;
+export default AnimalEdit;
 
 // {
 //   id: string;
