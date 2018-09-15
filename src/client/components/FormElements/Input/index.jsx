@@ -1,11 +1,11 @@
 import React from 'react';
 import { string, func } from 'prop-types';
 
-const input = ({ label, onChange, fieldName }) => (
+const input = ({ label, onChange, fieldName, type }) => (
   <label htmlFor={`form-element-${fieldName}`}>
     {label}
     <input
-      type="text"
+      type={type}
       id={`form-element-${fieldName}`}
       onChange={event => {
         onChange(event.target.value, fieldName);
@@ -17,7 +17,11 @@ const input = ({ label, onChange, fieldName }) => (
 input.propTypes = {
   label: string.isRequired,
   onChange: func.isRequired,
-  fieldName: string.isRequired
+  fieldName: string.isRequired,
+  type: string
+};
+input.defaultProps = {
+  type: 'text'
 };
 
 export default input;

@@ -11,11 +11,11 @@ const FORM_SCHEMA = [
   },
   {
     label: 'Wiek',
-    type: 'Input',
+    type: 'Number',
     fieldName: 'age'
   }
 ];
-
+// todo - wynieść shape na zewnątrz
 // const AnimalDetailsRouteParamShape = shape({})
 class AnimalDetails extends Component {
   state = {
@@ -61,6 +61,17 @@ class AnimalDetails extends Component {
             if (input.type === 'Input') {
               formItem = (
                 <Input label={input.label} fieldName={input.fieldName} onChange={this.onChange} key={input.fieldName} />
+              );
+            }
+            if (input.type === 'Number') {
+              formItem = (
+                <Input
+                  label={input.label}
+                  fieldName={input.fieldName}
+                  onChange={this.onChange}
+                  key={input.fieldName}
+                  type="number"
+                />
               );
             }
             return formItem;
