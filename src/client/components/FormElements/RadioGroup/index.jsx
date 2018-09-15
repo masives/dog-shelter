@@ -1,7 +1,7 @@
 import React from 'react';
 import { string, func, arrayOf, shape } from 'prop-types';
 
-const input = ({ label, onChange, fieldName, options }) => (
+const RadioGroup = ({ label, onChange, fieldName, options }) => (
   <div>
     {label}
     {/* <div>"takie propsy są tu</div> */}
@@ -21,7 +21,7 @@ const input = ({ label, onChange, fieldName, options }) => (
   </div>
 );
 
-input.propTypes = {
+RadioGroup.propTypes = {
   label: string.isRequired,
   onChange: func.isRequired,
   fieldName: string.isRequired,
@@ -32,6 +32,6 @@ input.propTypes = {
     })
   ).isRequired
 };
-input.defaultProps = {};
+RadioGroup.defaultProps = {};
 
-export default input;
+export default RadioGroup;
