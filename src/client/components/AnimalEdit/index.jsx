@@ -3,6 +3,7 @@ import { string, shape } from 'prop-types';
 import { createNewAnimal } from '../../resources/animalsApi';
 import Input from '../FormElements/Input';
 import RadioGroup from '../FormElements/RadioGroup';
+import Textarea from '../FormElements/Textarea/index';
 
 // todo - form settings should be extracted to config
 const FORM_SCHEMA = [
@@ -60,6 +61,11 @@ const FORM_SCHEMA = [
         value: 'taken'
       }
     ]
+  },
+  {
+    label: 'Opis',
+    type: 'Textarea',
+    fieldName: 'description'
   }
 ];
 // todo - wynieść shape na zewnątrz
@@ -129,6 +135,16 @@ class AnimalDetails extends Component {
                   onChange={this.onChange}
                   key={input.fieldName}
                   options={input.options}
+                />
+              );
+            }
+            if (input.type === 'Textarea') {
+              formItem = (
+                <Textarea
+                  label={input.label}
+                  fieldName={input.fieldName}
+                  onChange={this.onChange}
+                  key={input.fieldName}
                 />
               );
             }
