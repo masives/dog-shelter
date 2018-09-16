@@ -25,7 +25,8 @@
     "ts-loader": "^4.5.0",
     "typescript": "^3.0.1",
     "typescript-eslint-parser": "^18.0.0",
-    "webpack": "^4.17.1"
+    "webpack": "^4.17.1",
+    "webpack-merge": "^4.1.4"
   },
   "devDependencies": {
     "webpack-cli": "^3.1.0",
@@ -39,8 +40,8 @@
     "eslint-plugin-react": "^7.11.1"
   },
   "scripts": {
-    "dev:client": "webpack --env.mode development --watch",
-    "dev:server": "webpack --config webpack.server.config.js",
+    "dev:client": "webpack --env.mode development --env.target client --watch ",
+    "dev:server": "webpack --env.mode development --env.target server ",
     "dev:server:watch": "npm run dev:server -- --watch",
     "start:server": "cd dist && nodemon server.js",
     "client:lint": "eslint src/client/**/*.{js,jsx} --quiet --config src/client/.eslintrc"
