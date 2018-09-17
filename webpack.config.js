@@ -10,9 +10,6 @@ module.exports = (
     target: 'client'
   }
 ) => {
-  console.log('Running webpack in mode: ', mode);
-  console.log('config', getConfig(target));
-
   return webpackMerge(
     {
       mode
