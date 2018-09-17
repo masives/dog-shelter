@@ -12,7 +12,8 @@ module.exports = (
 ) => {
   return webpackMerge(
     {
-      mode
+      mode,
+      plugins: [new webpack.ProgressPlugin()]
     },
     getConfig(target)
   );
