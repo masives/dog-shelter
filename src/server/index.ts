@@ -1,10 +1,15 @@
 import * as express from 'express';
 import * as _ from 'lodash';
-import apiRouter from './api/index';
-import Animal from '../../types/Animal';
 const bodyParser = require('body-parser');
+import apiRouter from './api/index';
+import * as mongoose from 'mongoose';
+const DATABASE_NAME = 'friends_shelter';
 
 const port: number = 3000;
+
+// connect to db
+mongoose.connect(`mongodb://localhost/${DATABASE_NAME}`);
+
 const app = express();
 
 app.use(express.static('public'));

@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   target: 'node',
   entry: {
     main: './src/server/index.ts'
@@ -24,8 +24,10 @@ module.exports = {
   },
   output: {
     filename: 'server.js',
-    path: path.resolve(__dirname, '../../dist')
+    path: path.resolve(__dirname, '../../dist'),
+    libraryTarget: 'commonjs'
   },
+  externals: [/^(?!\.|\/).+/i],
   resolve: {
     extensions: ['.ts', '.js']
   }
