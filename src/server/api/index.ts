@@ -1,6 +1,8 @@
 import * as express from 'express';
 import * as _ from 'lodash';
+import * as mongoose from 'mongoose';
 import Animal from '../../../types/Animal';
+import animalModel from '../schema/animal';
 
 const apiRouter = express.Router();
 
@@ -35,12 +37,16 @@ apiRouter
     res.send(animals);
   })
   .post((req, res) => {
-    const newId = id;
-    id += 1;
     const newAnimal = req.body;
-    newAnimal.id = newId;
-    animals.push(newAnimal);
-    res.send(newAnimal);
+    console.log(req.body);
+    animalModel
+      .create(req.body)
+      .then(function(err, todo) {
+        res.status(200).send(newAnimal);
+      })
+      .catch(error => {
+        res.status(400).send(error);
+      });
   });
 
 apiRouter
