@@ -45,7 +45,7 @@
     "dev:client": "webpack --env.mode development --env.target client --watch ",
     "dev:server": "webpack --env.mode development --env.target server ",
     "dev:server:watch": "npm run dev:server -- --watch",
-    "start:server": "npm run dev:server && cd dist && nodemon server.js",
+    "start:server": "cd dist && nodemon server.js",
     "client:lint": "eslint src/client/**/*.{js,jsx} --quiet --config src/client/.eslintrc"
   },
   "author": "Masive",
