@@ -1,5 +1,4 @@
 import * as express from 'express';
-import * as _ from 'lodash';
 const bodyParser = require('body-parser');
 import apiRouter from './api/index';
 import * as mongoose from 'mongoose';
