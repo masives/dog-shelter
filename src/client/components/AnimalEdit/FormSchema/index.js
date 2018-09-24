@@ -27,7 +27,7 @@ const FORM_SCHEMA = [
   {
     label: 'Preferowane miejsce zamieszkania',
     type: 'RadioGroup',
-    fieldName: 'living-place',
+    fieldName: 'livingPlace',
     options: [
       {
         label: 'Dom',
@@ -46,7 +46,7 @@ const FORM_SCHEMA = [
     options: [
       {
         label: 'Do wzięcia',
-        value: 'for-grabs'
+        value: 'forGrabs'
       },
       {
         label: 'Zabrany',
