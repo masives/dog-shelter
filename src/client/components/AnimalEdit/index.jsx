@@ -2,70 +2,8 @@ import React, { Component } from 'react';
 import { string, shape } from 'prop-types';
 import { createNewAnimal } from '../../resources/animalsApi';
 import FormElementsFactory from '../FormElements/index';
+import FORM_SCHEMA from './FormSchema';
 
-// todo - form settings should be extracted to config
-const FORM_SCHEMA = [
-  {
-    label: 'Imie',
-    type: 'Input',
-    fieldName: 'name'
-  },
-  {
-    label: 'Wiek',
-    type: 'Number',
-    fieldName: 'age'
-  },
-  {
-    label: 'Rasa',
-    type: 'RadioGroup',
-    fieldName: 'race',
-    options: [
-      {
-        label: 'Pies',
-        value: 'dog'
-      },
-      {
-        label: 'Kot',
-        value: 'cat'
-      }
-    ]
-  },
-  {
-    label: 'Preferowane miejsce zamieszkania',
-    type: 'RadioGroup',
-    fieldName: 'living-place',
-    options: [
-      {
-        label: 'Dom',
-        value: 'house'
-      },
-      {
-        label: 'Mieszkanie',
-        value: 'apartment'
-      }
-    ]
-  },
-  {
-    label: 'Status',
-    type: 'RadioGroup',
-    fieldName: 'status',
-    options: [
-      {
-        label: 'Do wzięcia',
-        value: 'for-grabs'
-      },
-      {
-        label: 'Zabrany',
-        value: 'taken'
-      }
-    ]
-  },
-  {
-    label: 'Opis',
-    type: 'Textarea',
-    fieldName: 'description'
-  }
-];
 // todo - wynieść shape na zewnątrz
 // const AnimalDetailsRouteParamShape = shape({})
 class AnimalEdit extends Component {
@@ -92,7 +30,7 @@ class AnimalEdit extends Component {
   onSubmitRequest = event => {
     console.log(this.state);
     event.preventDefault();
-    // createAnimal(event);
+    createAnimal(event);
   };
 
   onChange = (formValue, fieldName) => {
