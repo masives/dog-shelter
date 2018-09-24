@@ -41,7 +41,7 @@ apiRouter
     console.log(req.body);
     animalModel
       .create(req.body)
-      .then(function(err, todo) {
+      .then((err, todo) => {
         res.status(200).send(newAnimal);
       })
       .catch(error => {
