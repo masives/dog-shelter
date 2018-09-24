@@ -27,12 +27,12 @@ const getSingleAnimal = id =>
 const createNewAnimal = animal =>
   new Promise((resolve, reject) => {
     axios
-      .post(`http://localhost:3000/api/animals`, animal)
+      .post(`/api/animals`, animal)
       .then(response => {
         resolve(response.data);
       })
-      .catch(response => {
-        reject(response);
+      .catch(error => {
+        reject(error.response.data);
       });
   });
 
