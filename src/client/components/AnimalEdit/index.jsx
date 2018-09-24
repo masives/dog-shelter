@@ -8,7 +8,15 @@ import FORM_SCHEMA from './FormSchema';
 // const AnimalDetailsRouteParamShape = shape({})
 class AnimalEdit extends Component {
   state = {
-    name: ''
+    form: {
+      name: '',
+      age: null,
+      race: '',
+      livingPlace: '',
+      status: '',
+      description: ''
+    },
+    error: []
   };
 
   static propTypes = {
@@ -29,12 +37,17 @@ class AnimalEdit extends Component {
 
   onSubmitRequest = event => {
     console.log(this.state);
+    createNewAnimal(this.state);
     event.preventDefault();
-    createAnimal(event);
   };
 
   onChange = (formValue, fieldName) => {
-    this.setState({ [fieldName]: formValue });
+    const { form } = this.state;
+
+    form[fieldName] = formValue;
+    this.setState({
+      form
+    });
   };
 
   render() {
@@ -42,7 +55,6 @@ class AnimalEdit extends Component {
     // const { animal } = this.state;
     return (
       <div>
-        <h1>chyba działo</h1>
         <h1>{match.params.id}</h1>
         <form onSubmit={this.onSubmitRequest}>
           {FORM_SCHEMA.map(input => (
@@ -56,14 +68,3 @@ class AnimalEdit extends Component {
 }
 
 export default AnimalEdit;
-
-// {
-//   id: string;
-//   name: string;
-//   race: string;
-//   age: number;
-//   preferedPlace: string;
-//   description: string;
-//   status: string;
-//   photos: Array<string>;
-// }
