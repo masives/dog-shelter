@@ -16,7 +16,7 @@ class AnimalEdit extends Component {
       status: '',
       description: ''
     },
-    error: []
+    errors: []
   };
 
   static propTypes = {
@@ -37,7 +37,15 @@ class AnimalEdit extends Component {
 
   onSubmitRequest = event => {
     console.log(this.state);
-    createNewAnimal(this.state);
+    const { form } = this.state;
+    createNewAnimal(form)
+      .then(response => {
+        console.log('it worked', response);
+      })
+      .catch(response => {
+        console.log('taki error', response);
+        this.setState({ errors: response.errors });
+      });
     event.preventDefault();
   };
 
