@@ -60,13 +60,18 @@ class AnimalEdit extends Component {
 
   render() {
     const { match } = this.props;
-    // const { animal } = this.state;
+    const { errors } = this.state;
     return (
       <div>
         <h1>{match.params.id}</h1>
         <form onSubmit={this.onSubmitRequest}>
           {FORM_SCHEMA.map(input => (
-            <FormElementsFactory inputConfig={input} onChange={this.onChange} key={input.label} />
+            <FormElementsFactory
+              inputConfig={input}
+              onChange={this.onChange}
+              key={input.label}
+              error={errors[input.fieldName]}
+            />
           ))}
           <input type="submit" value="Wyślij" />
         </form>

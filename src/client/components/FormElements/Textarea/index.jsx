@@ -1,9 +1,13 @@
 import React from 'react';
 import { string, func } from 'prop-types';
+import mongooseErrorShape from '../../../shapes/MongooseError';
 
-const Textarea = ({ label, onChange, fieldName }) => (
+const Textarea = ({ label, onChange, fieldName, error }) => (
   <label htmlFor={`form-element-${fieldName}`}>
-    {label}
+    <div>
+      {label}
+      {error ? <span> {error.message} </span> : ''}
+    </div>
     <textarea
       id={`form-element-${fieldName}`}
       cols="80"
@@ -18,7 +22,12 @@ const Textarea = ({ label, onChange, fieldName }) => (
 Textarea.propTypes = {
   label: string.isRequired,
   onChange: func.isRequired,
-  fieldName: string.isRequired
+  fieldName: string.isRequired,
+  error: mongooseErrorShape
+};
+
+Textarea.defaultProps = {
+  error: {}
 };
 
 export default Textarea;

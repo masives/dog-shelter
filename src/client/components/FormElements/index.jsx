@@ -3,7 +3,7 @@ import Input from './Input';
 import RadioGroup from './RadioGroup';
 import Textarea from './Textarea';
 
-const FormElementsFactory = ({ inputConfig, onChange }) => {
+const FormElementsFactory = ({ inputConfig, onChange, error }) => {
   let formItem;
   if (inputConfig.type === 'Input') {
     formItem = (
@@ -12,6 +12,7 @@ const FormElementsFactory = ({ inputConfig, onChange }) => {
         fieldName={inputConfig.fieldName}
         onChange={onChange}
         key={inputConfig.fieldName}
+        error={error}
       />
     );
   }
@@ -23,6 +24,7 @@ const FormElementsFactory = ({ inputConfig, onChange }) => {
         onChange={onChange}
         key={inputConfig.fieldName}
         type="number"
+        error={error}
       />
     );
   }
@@ -34,6 +36,7 @@ const FormElementsFactory = ({ inputConfig, onChange }) => {
         onChange={onChange}
         key={inputConfig.fieldName}
         options={inputConfig.options}
+        error={error}
       />
     );
   }
@@ -44,11 +47,12 @@ const FormElementsFactory = ({ inputConfig, onChange }) => {
         fieldName={inputConfig.fieldName}
         onChange={onChange}
         key={inputConfig.fieldName}
+        error={error}
       />
     );
   }
   if (!formItem) {
-    throw new Error('Coś sie spierdoliło');
+    throw new Error('Form item is invalid');
   }
   return formItem;
 };
