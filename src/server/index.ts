@@ -7,7 +7,10 @@ const DATABASE_NAME = 'friends_shelter';
 const port: number = 3000;
 
 // connect to db
-mongoose.connect(`mongodb://localhost/${DATABASE_NAME}`);
+mongoose.connect(
+  `mongodb://localhost/${DATABASE_NAME}`,
+  { useNewUrlParser: true }
+);
 
 const app = express();
 
