@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { HashRouter, Route, Link } from 'react-router-dom';
 import AnimalsList from './components/AnimalsList/index';
-import AnimalDetails from './components/AnimalDetails/index';
 import AnimalEdit from './components/AnimalEdit';
 
 class App extends Component {
@@ -19,11 +18,10 @@ class App extends Component {
           <section>
             <div>
               <Link to="/">Lista</Link>
-              <Link to="/animals/edit/0">Dodaj nowego</Link>
+              <Link to="/animals/0">Dodaj nowego</Link>
             </div>
             <Route path="/" exact component={AnimalsList} />
-            <Route path="/animals/:id" exact component={AnimalDetails} />
-            <Route path="/animals/edit/:id" exact component={AnimalEdit} />
+            <Route path="/animals/:id" exact component={AnimalEdit} />
           </section>
         </HashRouter>
       </div>
