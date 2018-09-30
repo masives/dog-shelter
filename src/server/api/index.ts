@@ -34,19 +34,39 @@ let id = 2;
 apiRouter
   .route('/animals')
   .get((req, res) => {
-    res.send(animals);
-  })
-  .post((req, res) => {
-    const newAnimal = req.body;
-    console.log(req.body);
     animalModel
-      .create(req.body)
-      .then((err, todo) => {
-        res.status(200).send(newAnimal);
+      .find({})
+      .then((document: mongoose.MongooseDocument) => {
+        res.send(document);
       })
       .catch(error => {
         res.status(400).send(error);
       });
+  })
+  .post((req, res) => {
+    const newAnimal = req.body;
+
+    // ensure unique name
+    animalModel.find({ name: newAnimal.name }, (error, document) => {
+      if (document.length > 0) {
+        res.status(400).send({
+          errors: {
+            name: {
+              message: 'name should be unique'
+            }
+          }
+        });
+      } else {
+        animalModel
+          .create(newAnimal)
+          .then(document => {
+            res.status(200).send(document);
+          })
+          .catch(error => {
+            res.status(400).send(error);
+          });
+      }
+    });
   });
 
 apiRouter

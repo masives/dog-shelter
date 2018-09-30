@@ -21,7 +21,6 @@ class AnimalList extends Component {
         <table>
           <thead>
             <tr>
-              <th>id</th>
               <th>Name</th>
               <th>Img</th>
               <th>Age</th>
@@ -33,18 +32,14 @@ class AnimalList extends Component {
           </thead>
           <tbody>
             {animals.map(animal => (
-              <tr key={animal.id}>
-                <td>{animal.id}</td>
-                <td>{animal.name}</td>
+              <tr key={animal._id}>
+                <td>{animal.name || ''}</td>
+                <td>{animal.age || ''}</td>
+                <td>{animal.description || ''}</td>
+                <td>{animal.race || ''}</td>
+                <td>{animal.status || ''}</td>
                 <td>
-                  <img src={animal.photos[0]} alt="" />
-                </td>
-                <td>{animal.age}</td>
-                <td>{animal.description}</td>
-                <td>{animal.race}</td>
-                <td>{animal.status}</td>
-                <td>
-                  <Link to={`/animals/${animal.id}`}>Detale</Link>
+                  <Link to={`/animals/${animal._id}`}>Detale</Link>
                 </td>
               </tr>
             ))}
