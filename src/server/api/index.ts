@@ -47,16 +47,6 @@ apiRouter
     const newAnimal = req.body;
 
     // ensure unique name
-    animalModel.find({ name: newAnimal.name }, (error, document) => {
-      if (document.length > 0) {
-        res.status(400).send({
-          errors: {
-            name: {
-              message: 'name should be unique'
-            }
-          }
-        });
-      } else {
         animalModel
           .create(newAnimal)
           .then(document => {
@@ -65,9 +55,7 @@ apiRouter
           .catch(error => {
             res.status(400).send(error);
           });
-      }
     });
-  });
 
 apiRouter
   .route('/animals/:id')

@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import * as uniqueValidator from 'mongoose-unique-validator';
 
 const AnimalSchema: mongoose.Schema = new mongoose.Schema({
   name: {
@@ -26,7 +27,7 @@ const AnimalSchema: mongoose.Schema = new mongoose.Schema({
     type: String,
     required: true
   }
-});
+}).plugin(uniqueValidator);
 
 const AnimalModel: mongoose.Model<any> = mongoose.model('animals', AnimalSchema);
 
