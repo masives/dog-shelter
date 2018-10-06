@@ -2,7 +2,7 @@ import React from 'react';
 import { string, func, arrayOf, shape } from 'prop-types';
 import mongooseErrorShape from '../../../shapes/MongooseError';
 
-const RadioGroup = ({ label, onChange, fieldName, options, error }) => (
+const RadioGroup = ({ label, onChange, fieldName, options, value, error }) => (
   <div>
     <div>
       {label}
@@ -17,6 +17,7 @@ const RadioGroup = ({ label, onChange, fieldName, options, error }) => (
           onChange={() => {
             onChange(option.value, fieldName);
           }}
+          checked={option.value === value}
         />
         {option.label}
       </label>
@@ -34,9 +35,11 @@ RadioGroup.propTypes = {
       value: string.isRequired
     })
   ).isRequired,
+  value: string,
   error: mongooseErrorShape
 };
 RadioGroup.defaultProps = {
+  value: '',
   error: {}
 };
 

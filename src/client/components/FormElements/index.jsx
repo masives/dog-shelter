@@ -3,7 +3,7 @@ import Input from './Input';
 import RadioGroup from './RadioGroup';
 import Textarea from './Textarea';
 
-const FormElementsFactory = ({ inputConfig, onChange, error }) => {
+const FormElementsFactory = ({ inputConfig, onChange, error, value }) => {
   let formItem;
   if (inputConfig.type === 'Input') {
     formItem = (
@@ -12,6 +12,7 @@ const FormElementsFactory = ({ inputConfig, onChange, error }) => {
         fieldName={inputConfig.fieldName}
         onChange={onChange}
         key={inputConfig.fieldName}
+        value={value}
         error={error}
       />
     );
@@ -24,6 +25,7 @@ const FormElementsFactory = ({ inputConfig, onChange, error }) => {
         onChange={onChange}
         key={inputConfig.fieldName}
         type="number"
+        value={value}
         error={error}
       />
     );
@@ -36,6 +38,7 @@ const FormElementsFactory = ({ inputConfig, onChange, error }) => {
         onChange={onChange}
         key={inputConfig.fieldName}
         options={inputConfig.options}
+        value={value}
         error={error}
       />
     );
@@ -47,6 +50,7 @@ const FormElementsFactory = ({ inputConfig, onChange, error }) => {
         fieldName={inputConfig.fieldName}
         onChange={onChange}
         key={inputConfig.fieldName}
+        value={value}
         error={error}
       />
     );

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { string, shape } from 'prop-types';
-import { createNewAnimal } from '../../resources/animalsApi';
+import { createNewAnimal, getSingleAnimal } from '../../resources/animalsApi';
 import FormElementsFactory from '../FormElements/index';
 import FORM_SCHEMA from './FormSchema';
 
@@ -10,7 +10,7 @@ class AnimalEdit extends Component {
   state = {
     form: {
       name: '',
-      age: null,
+      age: '',
       race: '',
       livingPlace: '',
       status: '',
@@ -34,6 +34,19 @@ class AnimalEdit extends Component {
       }
     }
   };
+
+  componentWillMount() {
+    const {
+      match: {
+        params: { id }
+      }
+    } = this.props;
+    if (id !== 0) {
+      getSingleAnimal(id).then(animal => {
+        this.setState({ form: animal });
+      });
+    }
+  }
 
   onSubmitRequest = event => {
     console.log(this.state);
@@ -60,7 +73,7 @@ class AnimalEdit extends Component {
 
   render() {
     const { match } = this.props;
-    const { errors } = this.state;
+    const { form, errors } = this.state;
     return (
       <div>
         <h1>{match.params.id}</h1>
@@ -71,6 +84,7 @@ class AnimalEdit extends Component {
               onChange={this.onChange}
               key={input.label}
               error={errors[input.fieldName]}
+              value={form[input.fieldName]}
             />
           ))}
           <input type="submit" value="Wyślij" />

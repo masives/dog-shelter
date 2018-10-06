@@ -1,8 +1,8 @@
 import React from 'react';
-import { string, func } from 'prop-types';
+import { string, number, func, oneOfType } from 'prop-types';
 import mongooseErrorShape from '../../../shapes/MongooseError';
 
-const input = ({ label, onChange, fieldName, type, error }) => (
+const input = ({ label, onChange, fieldName, type, value, error }) => (
   <label htmlFor={`form-element-${fieldName}`}>
     <div>
       {label}
@@ -14,6 +14,7 @@ const input = ({ label, onChange, fieldName, type, error }) => (
       onChange={event => {
         onChange(event.target.value, fieldName);
       }}
+      value={value}
     />
   </label>
 );
@@ -22,12 +23,14 @@ input.propTypes = {
   label: string.isRequired,
   onChange: func.isRequired,
   fieldName: string.isRequired,
+  value: oneOfType([string, number]),
   type: string,
   error: mongooseErrorShape
 };
 
 input.defaultProps = {
   type: 'text',
+  value: '',
   error: {}
 };
 

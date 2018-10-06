@@ -47,21 +47,29 @@ apiRouter
     const newAnimal = req.body;
 
     // ensure unique name
-        animalModel
-          .create(newAnimal)
-          .then(document => {
-            res.status(200).send(document);
-          })
-          .catch(error => {
-            res.status(400).send(error);
-          });
-    });
+    animalModel
+      .create(newAnimal)
+      .then(document => {
+        res.status(200).send(document);
+      })
+      .catch(error => {
+        res.status(400).send(error);
+      });
+  });
 
 apiRouter
   .route('/animals/:id')
   .get((req, res) => {
-    const searchedAnimal = _.find(animals, { id: req.params.id });
-    searchedAnimal ? res.send(searchedAnimal) : res.status(404).send('animal not found');
+    const id = req.params.id;
+    console.log('id', id);
+    animalModel
+      .findById(id)
+      .then(animal => {
+        res.status(200).send(animal);
+      })
+      .catch(error => {
+        res.status(400).send(error);
+      });
   })
   .put((req, res) => {
     const update = req.body;
