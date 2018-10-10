@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getAnimalsList = () =>
+export const getAnimalsList = () =>
   new Promise((resolve, reject) => {
     axios
       .get('http://localhost:3000/api/animals')
@@ -12,7 +12,7 @@ const getAnimalsList = () =>
       });
   });
 
-const getSingleAnimal = id =>
+export const getSingleAnimal = id =>
   new Promise((resolve, reject) => {
     axios
       .get(`http://localhost:3000/api/animals/${id}`)
@@ -24,7 +24,7 @@ const getSingleAnimal = id =>
       });
   });
 
-const createNewAnimal = animal =>
+export const createNewAnimal = animal =>
   new Promise((resolve, reject) => {
     axios
       .post(`/api/animals`, animal)
@@ -36,4 +36,14 @@ const createNewAnimal = animal =>
       });
   });
 
-export { getAnimalsList, getSingleAnimal, createNewAnimal };
+export const updateAnimal = (id, animal) =>
+  new Promise((resolve, reject) => {
+    axios
+      .put(`/api/animals/${id}`, animal)
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response.data);
+      });
+  });

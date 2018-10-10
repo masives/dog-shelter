@@ -60,8 +60,7 @@ apiRouter
 apiRouter
   .route('/animals/:id')
   .get((req, res) => {
-    const id = req.params.id;
-    console.log('id', id);
+    const { id } = req.params;
     animalModel
       .findById(id)
       .then(animal => {
@@ -73,13 +72,15 @@ apiRouter
   })
   .put((req, res) => {
     const update = req.body;
-    if (update.id) {
-      delete update.id;
-    }
-
-    const animalIndex = _.findIndex(animals, { id: req.params.id });
-    const updatedAnimal = _.assign(animals[animalIndex], update);
-    res.send(updatedAnimal);
+    const { id } = req.params;
+    animalModel
+      .findByIdAndUpdate(id, update, { new: true })
+      .then(animal => {
+        res.status(200).send(animal);
+      })
+      .catch(error => {
+        res.status(400).send(error);
+      });
   })
   .delete((req, res) => {
     const animalIndex = _.findIndex(animals, { id: req.params.id });

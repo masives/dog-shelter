@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { string, shape } from 'prop-types';
-import { createNewAnimal, getSingleAnimal } from '../../resources/animalsApi';
+import { createNewAnimal, getSingleAnimal, updateAnimal } from '../../resources/animalsApi';
 import FormElementsFactory from '../FormElements/index';
 import FORM_SCHEMA from './FormSchema';
 
@@ -41,25 +41,35 @@ class AnimalEdit extends Component {
         params: { id }
       }
     } = this.props;
-    if (id !== 0) {
+    if (id !== '0') {
       getSingleAnimal(id).then(animal => {
-        this.setState({ form: animal });
+        this.setState({ form: animal, id });
       });
     }
   }
 
   onSubmitRequest = event => {
-    console.log(this.state);
-    const { form } = this.state;
+    event.preventDefault();
+    const { form, id } = this.state;
+    if (id) {
+      updateAnimal(id, form)
+        .then(response => {
+          console.log('it worked', response);
+          // todo: implement growl
+        })
+        .catch(response => {
+          this.setState({ errors: response.errors });
+        });
+      return;
+    }
     createNewAnimal(form)
       .then(response => {
         console.log('it worked', response);
+        // todo: implement growl
       })
       .catch(response => {
-        console.log('taki error', response);
         this.setState({ errors: response.errors });
       });
-    event.preventDefault();
   };
 
   onChange = (formValue, fieldName) => {
