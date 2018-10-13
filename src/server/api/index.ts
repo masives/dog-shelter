@@ -1,35 +1,9 @@
 import * as express from 'express';
 import * as _ from 'lodash';
 import * as mongoose from 'mongoose';
-import Animal from '../../../types/Animal';
 import animalModel from '../schema/animal';
 
 const apiRouter = express.Router();
-
-//mocked animals schema
-const animals: Array<Animal> = [
-  {
-    id: '0',
-    name: 'Masala',
-    race: 'dog',
-    age: 3,
-    preferedPlace: 'block',
-    description: 'Fajny psiakeon z długą sznupą, ale troszke głupek',
-    status: 'taken',
-    photos: ['masala_1.jpg', 'masala_2.jpg']
-  },
-  {
-    id: '1',
-    name: 'Bigos',
-    race: 'dog',
-    age: 5,
-    preferedPlace: 'house',
-    description: 'Straszny gupkoneusz, niedorzecznie wręcz',
-    status: 'up for grabs',
-    photos: ['bigos_1.jpg', 'bigos.jpg']
-  }
-];
-let id = 2;
 
 apiRouter
   .route('/animals')
@@ -83,15 +57,15 @@ apiRouter
       });
   })
   .delete((req, res) => {
-    const animalIndex = _.findIndex(animals, { id: req.params.id });
-    if (!animalIndex) {
-      res.status(404).send('Animal not found');
-      return;
-    }
-
-    const removedAnimal = animals.splice(animalIndex);
-
-    res.send(removedAnimal);
+    const { id } = req.params;
+    animalModel
+      .findByIdAndRemove(id)
+      .then(() => {
+        res.status(200).send(`Succesfully deleted animal for id: ${id}`);
+      })
+      .catch(error => {
+        res.status(400).send(error);
+      });
   });
 
 export default apiRouter;

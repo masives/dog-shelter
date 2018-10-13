@@ -47,3 +47,15 @@ export const updateAnimal = (id, animal) =>
         reject(error.response.data);
       });
   });
+
+export const removeAnimal = id =>
+  new Promise((resolve, reject) => {
+    axios
+      .delete(`/api/animals/${id}`)
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error.response.data);
+      });
+  });
