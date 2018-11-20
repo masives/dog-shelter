@@ -5,11 +5,45 @@ import animalModel from '../schema/animal';
 
 const apiRouter = express.Router();
 
+const isNumeric = obj => {
+  var realStringObj = obj && obj.toString();
+  return !Array.isArray(obj) && realStringObj - parseFloat(realStringObj) + 1 >= 0;
+};
+
+const hasQueryArguments = query => {
+  return Object.keys(query).length;
+};
+
+const buildSearchCriteria = query => {
+  const searchCriteria = {};
+  Object.keys(query).forEach(key => {
+    console.log('search criterion', query[key]);
+    console.log('type', typeof query[key]);
+    if (isNumeric(query[key])) {
+      searchCriteria[key] = query[key];
+      return;
+    }
+    searchCriteria[key] = new RegExp(query[key], 'i');
+  });
+  return searchCriteria;
+};
+
 apiRouter
   .route('/animals')
   .get((req, res) => {
+    const { query } = req;
+    const searchCriteria = hasQueryArguments(query)
+      ? // ? {
+        //     name: new RegExp(query.name, 'i'),
+        //     age: query.age,
+        //     race: query.race
+        //   }
+        buildSearchCriteria(query)
+      : undefined;
+    console.log('query', query);
+    console.log('search', searchCriteria);
     animalModel
-      .find({})
+      .find(searchCriteria)
       .then((document: mongoose.MongooseDocument) => {
         res.send(document);
       })
