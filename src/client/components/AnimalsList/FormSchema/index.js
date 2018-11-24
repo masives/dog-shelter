@@ -47,7 +47,7 @@ const FORM_SCHEMA = [
         value: ''
       }
     ]
-  },
+  }
 ];
 
 export default FORM_SCHEMA;

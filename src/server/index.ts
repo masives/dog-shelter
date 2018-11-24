@@ -1,7 +1,9 @@
 import * as express from 'express';
 const bodyParser = require('body-parser');
-import apiRouter from './api/index';
 import * as mongoose from 'mongoose';
+const fileUpload = require('express-fileupload');
+import apiRouter from './api';
+
 const DATABASE_NAME = 'friends_shelter';
 
 const port: number = 3000;
@@ -14,8 +16,10 @@ mongoose.connect(
 
 const app = express();
 
+// website serving
 app.use(express.static('public'));
 
+// parsers
 app.use(
   bodyParser.urlencoded({
     extended: true
@@ -23,6 +27,14 @@ app.use(
 );
 app.use(bodyParser.json());
 
+// file upload handling
+app.use(
+  fileUpload({
+    safeFileNames: true
+  })
+);
+
+// router
 app.use('/api', apiRouter);
 
 app.listen(port);

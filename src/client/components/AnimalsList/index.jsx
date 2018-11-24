@@ -16,7 +16,7 @@ class AnimalList extends Component {
   }
 
   updateAnimalsList = () => {
-    getAnimalsList().then(animals => {
+    getAnimalsList().then((animals) => {
       this.setState({ animals });
     });
   };
@@ -30,14 +30,14 @@ class AnimalList extends Component {
         form
       },
       () => {
-        getAnimalsList(form).then(animals => {
+        getAnimalsList(form).then((animals) => {
           this.setState({ animals });
         });
       }
     );
   };
 
-  onRemoveAnimal = id => {
+  onRemoveAnimal = (id) => {
     removeAnimal(id).then(() => this.updateAnimalsList());
   };
 
@@ -48,7 +48,7 @@ class AnimalList extends Component {
       <div>
         <h2>Filtry</h2>
         <form onSubmit={onSubmitRequest}>
-          {FORM_SCHEMA.map(input => (
+          {FORM_SCHEMA.map((input) => (
             <FormElementsFactory
               inputConfig={input}
               onChange={this.onChange}
@@ -72,7 +72,7 @@ class AnimalList extends Component {
             </tr>
           </thead>
           <tbody>
-            {animals.map(animal => (
+            {animals.map((animal) => (
               <tr key={animal._id}>
                 <td>{animal.name || ''}</td>
                 <td>{animal.age || ''}</td>

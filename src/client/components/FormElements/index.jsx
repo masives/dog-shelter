@@ -2,6 +2,7 @@ import React from 'react';
 import Input from './Input';
 import RadioGroup from './RadioGroup';
 import Textarea from './Textarea';
+import File from './File';
 
 const FormElementsFactory = ({ inputConfig, onChange, error, value }) => {
   let formItem;
@@ -51,6 +52,17 @@ const FormElementsFactory = ({ inputConfig, onChange, error, value }) => {
         onChange={onChange}
         key={inputConfig.fieldName}
         value={value}
+        error={error}
+      />
+    );
+  }
+  if (inputConfig.type === 'File') {
+    formItem = (
+      <File
+        label={inputConfig.label}
+        fieldName={inputConfig.fieldName}
+        onChange={onChange}
+        key={inputConfig.fieldName}
         error={error}
       />
     );

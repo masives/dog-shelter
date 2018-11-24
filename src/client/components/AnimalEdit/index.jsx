@@ -14,7 +14,8 @@ class AnimalEdit extends Component {
       race: '',
       livingPlace: '',
       status: '',
-      description: ''
+      description: '',
+      photo: {}
     },
     errors: []
   };
@@ -42,37 +43,39 @@ class AnimalEdit extends Component {
       }
     } = this.props;
     if (id !== '0') {
-      getSingleAnimal(id).then(animal => {
+      getSingleAnimal(id).then((animal) => {
         this.setState({ form: animal, id });
       });
     }
   }
 
-  onSubmitRequest = event => {
+  onSubmitRequest = (event) => {
     event.preventDefault();
     const { form, id } = this.state;
     if (id) {
       updateAnimal(id, form)
-        .then(response => {
+        .then((response) => {
           console.log('it worked', response);
           // todo: implement growl
         })
-        .catch(response => {
+        .catch((response) => {
           this.setState({ errors: response.errors });
         });
       return;
     }
+    console.log('onsubmit', form);
     createNewAnimal(form)
-      .then(response => {
+      .then((response) => {
         console.log('it worked', response);
         // todo: implement growl
       })
-      .catch(response => {
+      .catch((response) => {
         this.setState({ errors: response.errors });
       });
   };
 
   onChange = (formValue, fieldName) => {
+    console.log('formValue', formValue);
     const { form } = this.state;
 
     form[fieldName] = formValue;
@@ -88,7 +91,7 @@ class AnimalEdit extends Component {
       <div>
         <h1>{match.params.id}</h1>
         <form onSubmit={this.onSubmitRequest}>
-          {FORM_SCHEMA.map(input => (
+          {FORM_SCHEMA.map((input) => (
             <FormElementsFactory
               inputConfig={input}
               onChange={this.onChange}

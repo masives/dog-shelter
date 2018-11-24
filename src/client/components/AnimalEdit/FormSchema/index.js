@@ -55,6 +55,11 @@ const FORM_SCHEMA = [
     ]
   },
   {
+    label: 'Zdjęcie',
+    type: 'File',
+    fieldName: 'photo'
+  },
+  {
     label: 'Opis',
     type: 'Textarea',
     fieldName: 'description'
