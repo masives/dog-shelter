@@ -18,6 +18,7 @@ const app = express();
 
 // website serving
 app.use(express.static('public'));
+app.use(express.static('uploads'));
 
 // parsers
 app.use(

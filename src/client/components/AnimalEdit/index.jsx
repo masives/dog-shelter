@@ -4,8 +4,6 @@ import { createNewAnimal, getSingleAnimal, updateAnimal } from '../../resources/
 import FormElementsFactory from '../FormElements/index';
 import FORM_SCHEMA from './FormSchema';
 
-// todo - wynieść shape na zewnątrz
-// const AnimalDetailsRouteParamShape = shape({})
 class AnimalEdit extends Component {
   state = {
     form: {
@@ -15,7 +13,7 @@ class AnimalEdit extends Component {
       livingPlace: '',
       status: '',
       description: '',
-      photo: {}
+      photo: ''
     },
     errors: []
   };

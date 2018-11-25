@@ -2,6 +2,8 @@ import * as express from 'express';
 const uuidv1 = require('uuid/v1');
 const path = require('path');
 
+const STORED_FILES_DIRECTORY = '/uploads/';
+
 const apiRouter = express.Router();
 
 apiRouter.route('/').post((req: any, res, next) => {
@@ -12,12 +14,11 @@ apiRouter.route('/').post((req: any, res, next) => {
     return res.status(400).send('Only one file allowed.');
   }
 
-  console.log('files', req.files);
   const photoFile = req.files.file;
-  // add hash with date
+
   const currentPath = process.cwd();
-  const filepath = `uploads/photos/${uuidv1()}.jpg`;
-  const targetDestination = path.join(currentPath, filepath);
+  const filepath = `photos/${uuidv1()}.jpg`;
+  const targetDestination = currentPath + STORED_FILES_DIRECTORY + filepath;
   photoFile.mv(targetDestination, (err) => {
     if (err) {
       return res.status(500).send(err);

@@ -64,6 +64,7 @@ const FormElementsFactory = ({ inputConfig, onChange, error, value }) => {
         onChange={onChange}
         key={inputConfig.fieldName}
         error={error}
+        value={value}
       />
     );
   }
