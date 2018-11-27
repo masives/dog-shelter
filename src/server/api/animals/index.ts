@@ -33,15 +33,9 @@ apiRouter
   .get((req, res) => {
     const { query } = req;
     const searchCriteria = hasQueryArguments(query)
-      ? // ? {
-        //     name: new RegExp(query.name, 'i'),
-        //     age: query.age,
-        //     race: query.race
-        //   }
-        buildSearchCriteria(query)
+      ?
+      buildSearchCriteria(query)
       : undefined;
-    console.log('query', query);
-    console.log('search', searchCriteria);
     animalModel
       .find(searchCriteria)
       .then((document: mongoose.MongooseDocument) => {
