@@ -5,6 +5,8 @@ import { uploadPhoto } from '../../../resources/animalsApi';
 
 const FileInput = ({ label, onChange, fieldName, error, value }) => (
   <label htmlFor={`form-element-${fieldName}`}>
+    {/* // todo style properly */}
+    <style>{`.photo{max-width: 300px}`}</style>
     <div>
       {label}
       {error ? <span> {error.message} </span> : ''}
@@ -18,7 +20,8 @@ const FileInput = ({ label, onChange, fieldName, error, value }) => (
         });
       }}
     />
-    <img src={value} alt="" key={value} />
+    <br />
+    <img src={value} alt="" key={value} className="photo" />
   </label>
 );
 

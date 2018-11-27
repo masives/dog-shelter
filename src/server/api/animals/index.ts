@@ -58,7 +58,7 @@ apiRouter
   });
 
 apiRouter
-  .route('/animals/:id')
+  .route('/:id')
   .get((req, res) => {
     const { id } = req.params;
     animalModel
