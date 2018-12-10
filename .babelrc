@@ -2,6 +2,13 @@
   "presets": [
     "@babel/preset-react",
     [
+      "@babel/preset-typescript",
+      {
+        "isTSX": true,
+        "allExtensions": true
+      }
+    ],
+    [
       "env",
       {
         "targets": {
@@ -12,10 +19,14 @@
       }
     ]
   ],
-  "plugins": ["babel-plugin-transform-class-properties"],
+  "plugins": [
+    "babel-plugin-transform-class-properties"
+  ],
   "env": {
     "test": {
-      "plugins": ["transform-es2015-modules-commonjs"]
+      "plugins": [
+        "transform-es2015-modules-commonjs"
+      ]
     }
   }
 }
