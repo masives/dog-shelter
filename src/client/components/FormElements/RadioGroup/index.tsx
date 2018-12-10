@@ -1,5 +1,5 @@
+import { arrayOf, func, shape, string } from 'prop-types';
 import React from 'react';
-import { string, func, arrayOf, shape } from 'prop-types';
 import mongooseErrorShape from '../../../shapes/MongooseError';
 
 const RadioGroup = ({ label, onChange, fieldName, options, value, error }) => (
@@ -8,7 +8,7 @@ const RadioGroup = ({ label, onChange, fieldName, options, value, error }) => (
       {label}
       {error ? <span> {error.message} </span> : ''}
     </div>
-    {options.map(option => (
+    {options.map((option) => (
       <label key={option.value} htmlFor={`${fieldName}-checkbox-${option.value}`}>
         <input
           type="radio"
@@ -26,21 +26,21 @@ const RadioGroup = ({ label, onChange, fieldName, options, value, error }) => (
 );
 
 RadioGroup.propTypes = {
+  error: mongooseErrorShape,
+  fieldName: string.isRequired,
   label: string.isRequired,
   onChange: func.isRequired,
-  fieldName: string.isRequired,
   options: arrayOf(
     shape({
       label: string.isRequired,
-      value: string.isRequired
-    })
+      value: string.isRequired,
+    }),
   ).isRequired,
   value: string,
-  error: mongooseErrorShape
 };
 RadioGroup.defaultProps = {
+  error: {},
   value: '',
-  error: {}
 };
 
 export default RadioGroup;

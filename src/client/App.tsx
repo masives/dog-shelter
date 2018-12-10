@@ -1,7 +1,7 @@
 import React from 'react';
-import { HashRouter, Route, Link } from 'react-router-dom';
-import AnimalsList from './components/AnimalsList/index';
+import { HashRouter, Link, Route } from 'react-router-dom';
 import AnimalEdit from './components/AnimalEdit';
+import AnimalsList from './components/AnimalsList/index';
 
 const App = () => (
   <div>
@@ -12,8 +12,8 @@ const App = () => (
           <Link to="/">Lista</Link>
           <Link to="/animals/0">Dodaj nowego</Link>
         </div>
-        <Route path="/" exact component={AnimalsList} />
-        <Route path="/animals/:id" exact component={AnimalEdit} />
+        <Route path="/" exact={true} component={AnimalsList} />
+        <Route path="/animals/:id" exact={true} component={AnimalEdit} />
       </section>
     </HashRouter>
   </div>

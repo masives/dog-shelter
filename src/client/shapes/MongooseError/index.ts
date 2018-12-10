@@ -1,10 +1,10 @@
-import { string, shape } from 'prop-types';
+import { shape, string } from 'prop-types';
 
 const mongooseErrorShape = shape({
   kind: string,
+  message: string,
   name: string,
   path: string,
-  message: string
 });
 
 export default mongooseErrorShape;

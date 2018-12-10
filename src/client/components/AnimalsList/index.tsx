@@ -1,47 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getAnimalsList, removeAnimal } from '../../resources/animalsApi';
-import FORM_SCHEMA from './FormSchema';
 import FormElementsFactory from '../FormElements';
+import FORM_SCHEMA from './FormSchema';
 
 class AnimalList extends Component {
-  state = {
+  private state = {
     animals: [],
     errors: {},
     form: {}
   };
 
-  componentDidMount() {
-    this.updateAnimalsList();
-  }
-
-  updateAnimalsList = () => {
-    getAnimalsList().then((animals) => {
-      this.setState({ animals });
-    });
-  };
-
-  onChange = (formValue, fieldName) => {
-    const { form } = this.state;
-
-    form[fieldName] = formValue;
-    this.setState(
-      {
-        form
-      },
-      () => {
-        getAnimalsList(form).then((animals) => {
-          this.setState({ animals });
-        });
-      }
-    );
-  };
-
-  onRemoveAnimal = (id) => {
+  public onRemoveAnimal = (id) => {
     removeAnimal(id).then(() => this.updateAnimalsList());
   };
 
-  render() {
+  public render() {
     const { animals, errors, form } = this.state;
     const { onRemoveAnimal, onSubmitRequest } = this;
     return (
@@ -92,6 +66,32 @@ class AnimalList extends Component {
       </div>
     );
   }
+
+  private componentDidMount() {
+    this.updateAnimalsList();
+  }
+
+  private updateAnimalsList = () => {
+    getAnimalsList().then((animals) => {
+      this.setState({ animals });
+    });
+  };
+
+  private onChange = (formValue, fieldName) => {
+    const { form } = this.state;
+
+    form[fieldName] = formValue;
+    this.setState(
+      {
+        form
+      },
+      () => {
+        getAnimalsList(form).then((animals) => {
+          this.setState({ animals });
+        });
+      }
+    );
+  };
 }
 
 export default AnimalList;

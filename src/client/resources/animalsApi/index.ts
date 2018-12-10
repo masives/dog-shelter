@@ -68,8 +68,8 @@ export const uploadPhoto = (photoObject) => {
     axios
       .post(`/api/photo`, photo, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       })
       .then((response) => {
         resolve(response.data);

@@ -1,5 +1,5 @@
+import { func, string } from 'prop-types';
 import React from 'react';
-import { string, func } from 'prop-types';
 import mongooseErrorShape from '../../../shapes/MongooseError';
 
 const Textarea = ({ label, onChange, fieldName, value, error }) => (
@@ -12,7 +12,7 @@ const Textarea = ({ label, onChange, fieldName, value, error }) => (
       id={`form-element-${fieldName}`}
       cols="80"
       rows="15"
-      onChange={event => {
+      onChange={(event) => {
         onChange(event.target.value, fieldName);
       }}
       value={value}
@@ -21,16 +21,16 @@ const Textarea = ({ label, onChange, fieldName, value, error }) => (
 );
 
 Textarea.propTypes = {
+  error: mongooseErrorShape,
+  fieldName: string.isRequired,
   label: string.isRequired,
   onChange: func.isRequired,
-  fieldName: string.isRequired,
   value: string,
-  error: mongooseErrorShape
 };
 
 Textarea.defaultProps = {
+  error: {},
   value: '',
-  error: {}
 };
 
 export default Textarea;

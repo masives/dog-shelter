@@ -1,44 +1,45 @@
+import { shape, string } from 'prop-types';
 import React, { Component } from 'react';
-import { string, shape } from 'prop-types';
 import { createNewAnimal, getSingleAnimal, updateAnimal } from '../../resources/animalsApi';
 import FormElementsFactory from '../FormElements/index';
 import FORM_SCHEMA from './FormSchema';
 
 class AnimalEdit extends Component {
-  state = {
-    form: {
-      name: '',
-      age: '',
-      race: '',
-      livingPlace: '',
-      status: '',
-      description: '',
-      photo: ''
-    },
-    errors: []
-  };
 
-  static propTypes = {
+  public static propTypes = {
     match: shape({
       params: shape({
-        id: string
-      })
-    })
+        id: string,
+      }),
+    }),
   };
 
-  static defaultProps = {
+  public static defaultProps = {
     match: {
       params: {
-        id: '0'
-      }
-    }
+        id: '0',
+      },
+    },
   };
 
-  componentWillMount() {
+  public state = {
+    errors: [],
+    form: {
+      age: '',
+      description: '',
+      livingPlace: '',
+      name: '',
+      photo: '',
+      race: '',
+      status: '',
+    },
+  };
+
+  public componentWillMount() {
     const {
       match: {
-        params: { id }
-      }
+        params: { id },
+      },
     } = this.props;
     if (id !== '0') {
       getSingleAnimal(id).then((animal) => {
@@ -47,7 +48,7 @@ class AnimalEdit extends Component {
     }
   }
 
-  onSubmitRequest = (event) => {
+  public onSubmitRequest = (event) => {
     event.preventDefault();
     const { form, id } = this.state;
     if (id) {
@@ -70,19 +71,19 @@ class AnimalEdit extends Component {
       .catch((response) => {
         this.setState({ errors: response.errors });
       });
-  };
+  }
 
-  onChange = (formValue, fieldName) => {
+  public onChange = (formValue, fieldName) => {
     console.log('formValue', formValue);
     const { form } = this.state;
 
     form[fieldName] = formValue;
     this.setState({
-      form
+      form,
     });
-  };
+  }
 
-  render() {
+  public render() {
     const { match } = this.props;
     const { form, errors } = this.state;
     return (

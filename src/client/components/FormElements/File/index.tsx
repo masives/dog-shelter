@@ -39,5 +39,5 @@ FileInput.defaultProps = {
   value: '',
   error: {}
 };
-
+ 
 export default FileInput;

@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-eval-source-map',
-  entry: './src/client/entry.jsx',
+  entry: './src/client/entry.tsx',
   output: {
     path: path.join(__dirname, '../../dist/public'),
     filename: 'bundle.js'
@@ -14,19 +14,19 @@ module.exports = {
     rules: [
       {
         enforce: 'pre',
-        test: /\.(js|jsx)$/,
-        loader: 'eslint-loader',
+        test: /\.(ts|tsx)$/,
+        loader: 'tslint-loader',
         exclude: /node_modules/
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(ts|tsx)$/,
         loader: 'babel-loader',
         exclude: /node_modules/
       }
     ]
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json'] // order of resolution from left to right on imports without extension (import App from './App)
+    extensions: ['.ts', '.tsx', '.js', '.json']
   },
   plugins: [
     new HtmlWebpackPlugin({
