@@ -12,7 +12,7 @@ module.exports = {
       {
         enforce: 'pre',
         test: /\.(ts)$/,
-        loader: 'eslint-loader',
+        loader: 'tslint-loader',
         exclude: /node_modules/
       },
       {

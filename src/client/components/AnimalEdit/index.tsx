@@ -1,27 +1,34 @@
 import { shape, string } from 'prop-types';
-import React, { Component } from 'react';
+import * as React from 'react';
 import { createNewAnimal, getSingleAnimal, updateAnimal } from '../../resources/animalsApi';
 import FormElementsFactory from '../FormElements/index';
 import FORM_SCHEMA from './FormSchema';
 
-class AnimalEdit extends Component {
+interface IAnimalEditForm {
+    age: string;
+    description: string;
+    livingPlace: string;
+    name: string;
+    photo: string;
+    race: string;
+    status: string;
+  }
 
-  public static propTypes = {
-    match: shape({
-      params: shape({
-        id: string,
-      }),
-    }),
-  };
-
-  public static defaultProps = {
-    match: {
-      params: {
-        id: '0',
-      },
+interface IProps {
+  match: {
+    params: {
+      id: string,
     },
   };
+}
 
+interface IState {
+  errors: any[];
+  form: IAnimalEditForm;
+  id: string;
+}
+
+class AnimalEdit extends React.Component<IProps, IState> {
   public state = {
     errors: [],
     form: {
@@ -33,6 +40,7 @@ class AnimalEdit extends Component {
       race: '',
       status: '',
     },
+    id: '',
   };
 
   public componentWillMount() {
@@ -42,7 +50,7 @@ class AnimalEdit extends Component {
       },
     } = this.props;
     if (id !== '0') {
-      getSingleAnimal(id).then((animal) => {
+      getSingleAnimal(id).then((animal: IAnimalEditForm) => {
         this.setState({ form: animal, id });
       });
     }
@@ -54,7 +62,6 @@ class AnimalEdit extends Component {
     if (id) {
       updateAnimal(id, form)
         .then((response) => {
-          console.log('it worked', response);
           // todo: implement growl
         })
         .catch((response) => {
@@ -62,10 +69,8 @@ class AnimalEdit extends Component {
         });
       return;
     }
-    console.log('onsubmit', form);
     createNewAnimal(form)
       .then((response) => {
-        console.log('it worked', response);
         // todo: implement growl
       })
       .catch((response) => {
@@ -74,7 +79,6 @@ class AnimalEdit extends Component {
   }
 
   public onChange = (formValue, fieldName) => {
-    console.log('formValue', formValue);
     const { form } = this.state;
 
     form[fieldName] = formValue;
@@ -85,24 +89,26 @@ class AnimalEdit extends Component {
 
   public render() {
     const { match } = this.props;
-    const { form, errors } = this.state;
     return (
       <div>
         <h1>{match.params.id}</h1>
         <form onSubmit={this.onSubmitRequest}>
-          {FORM_SCHEMA.map((input) => (
-            <FormElementsFactory
-              inputConfig={input}
-              onChange={this.onChange}
-              key={input.label}
-              error={errors[input.fieldName]}
-              value={form[input.fieldName]}
-            />
-          ))}
+          {FORM_SCHEMA.map((input) => FormElementsFactory(this.getInputProps(input)))}
           <input type="submit" value="Wyślij" />
         </form>
       </div>
     );
+  }
+
+  private getInputProps = (input) => {
+    const { form, errors } = this.state;
+    return {
+      error: errors[input.fieldName],
+      inputConfig: input,
+      key: input.label,
+      onChange: this.onChange,
+      value: form[input.fieldName],
+    };
   }
 }
 
