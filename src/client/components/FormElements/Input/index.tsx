@@ -1,8 +1,16 @@
-import React from 'react';
-import { string, number, func, oneOfType } from 'prop-types';
-import mongooseErrorShape from '../../../shapes/MongooseError';
+import * as React from 'react';
+import IMongooseError from '../../../types/MongooseError';
 
-const input = ({ label, onChange, fieldName, type, value, error }) => (
+interface IProps {
+  label: string;
+  onChange: (value: string, fieldName: string ) => void;
+  fieldName: string;
+  value: string | number;
+  type?: string;
+  error?: IMongooseError;
+}
+
+const input = ({ label, onChange, fieldName, type = 'text', value = '', error }: IProps) => (
   <label htmlFor={`form-element-${fieldName}`}>
     <div>
       {label}
@@ -11,27 +19,10 @@ const input = ({ label, onChange, fieldName, type, value, error }) => (
     <input
       type={type}
       id={`form-element-${fieldName}`}
-      onChange={event => {
-        onChange(event.target.value, fieldName);
-      }}
+      onChange={(event) => onChange(event.target.value, fieldName)}
       value={value}
     />
   </label>
 );
-
-input.propTypes = {
-  label: string.isRequired,
-  onChange: func.isRequired,
-  fieldName: string.isRequired,
-  value: oneOfType([string, number]),
-  type: string,
-  error: mongooseErrorShape
-};
-
-input.defaultProps = {
-  type: 'text',
-  value: '',
-  error: {}
-};
 
 export default input;

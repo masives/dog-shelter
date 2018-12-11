@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
+import File from './File';
 import Input from './Input';
 import RadioGroup from './RadioGroup';
 import Textarea from './Textarea';
-import File from './File';
 
 const FormElementsFactory = ({ inputConfig, onChange, error, value }) => {
   let formItem;

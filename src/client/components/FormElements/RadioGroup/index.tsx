@@ -1,46 +1,45 @@
-import { arrayOf, func, shape, string } from 'prop-types';
-import React from 'react';
-import mongooseErrorShape from '../../../shapes/MongooseError';
+import * as React from 'react';
+import IMongooseError from '../../../types/MongooseError';
 
-const RadioGroup = ({ label, onChange, fieldName, options, value, error }) => (
+interface IRadioGroupOption {
+  label: string;
+  value: string;
+}
+
+type IOnRadioGroupChange = (value: string, fieldName: string) => void;
+
+interface IProps {
+  error: IMongooseError;
+  fieldName: string;
+  label: string;
+  onChange: IOnRadioGroupChange;
+  options: IRadioGroupOption[];
+  value: string;
+}
+
+const getRadioGroup = (option: IRadioGroupOption, fieldName: string, value: string, onChange: IOnRadioGroupChange) => (
+  <label key={option.value} htmlFor={`${fieldName}-checkbox-${option.value}`}>
+  <input
+    type="radio"
+    name={`checkbox-group-${fieldName}`}
+    id={`${fieldName}-checkbox-${option.value}`}
+    onChange={() => {
+      onChange(option.value, fieldName);
+    }}
+    checked={option.value === value}
+  />
+  {option.label}
+</label>
+);
+
+const RadioGroup = ({ label, onChange, fieldName, options, value, error }: IProps) => (
   <div>
     <div>
       {label}
       {error ? <span> {error.message} </span> : ''}
     </div>
-    {options.map((option) => (
-      <label key={option.value} htmlFor={`${fieldName}-checkbox-${option.value}`}>
-        <input
-          type="radio"
-          name={`checkbox-group-${fieldName}`}
-          id={`${fieldName}-checkbox-${option.value}`}
-          onChange={() => {
-            onChange(option.value, fieldName);
-          }}
-          checked={option.value === value}
-        />
-        {option.label}
-      </label>
-    ))}
+    {options.map((option) => getRadioGroup(option, fieldName, value, onChange))}
   </div>
 );
-
-RadioGroup.propTypes = {
-  error: mongooseErrorShape,
-  fieldName: string.isRequired,
-  label: string.isRequired,
-  onChange: func.isRequired,
-  options: arrayOf(
-    shape({
-      label: string.isRequired,
-      value: string.isRequired,
-    }),
-  ).isRequired,
-  value: string,
-};
-RadioGroup.defaultProps = {
-  error: {},
-  value: '',
-};
 
 export default RadioGroup;
