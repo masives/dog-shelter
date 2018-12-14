@@ -1,36 +1,38 @@
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { getAnimalsList, removeAnimal } from '../../resources/animalsApi';
 import FormElementsFactory from '../FormElements';
 import FORM_SCHEMA from './FormSchema';
 
-class AnimalList extends Component {
+const getFormElement = (input, onChange, error, value) => (
+  <FormElementsFactory
+    inputConfig={input}
+    onChange={onChange}
+    key={input.label}
+    error={error}
+    value={value}
+  />
+);
+
+class AnimalList extends React.Component {
   private state = {
     animals: [],
     errors: {},
-    form: {}
+    form: {},
   };
 
   public onRemoveAnimal = (id) => {
     removeAnimal(id).then(() => this.updateAnimalsList());
-  };
+  }
 
   public render() {
     const { animals, errors, form } = this.state;
-    const { onRemoveAnimal, onSubmitRequest } = this;
+    const { onRemoveAnimal, onChange } = this;
     return (
       <div>
         <h2>Filtry</h2>
-        <form onSubmit={onSubmitRequest}>
-          {FORM_SCHEMA.map((input) => (
-            <FormElementsFactory
-              inputConfig={input}
-              onChange={this.onChange}
-              key={input.label}
-              error={errors[input.fieldName]}
-              value={form[input.fieldName]}
-            />
-          ))}
+        <form>
+          {FORM_SCHEMA.map((input) => getFormElement(input, onChange, errors[input.fieldName], form[input.fieldName]))}
         </form>
         <h1>Lista zwierzaków</h1>
         <table>
@@ -75,7 +77,7 @@ class AnimalList extends Component {
     getAnimalsList().then((animals) => {
       this.setState({ animals });
     });
-  };
+  }
 
   private onChange = (formValue, fieldName) => {
     const { form } = this.state;
@@ -83,15 +85,15 @@ class AnimalList extends Component {
     form[fieldName] = formValue;
     this.setState(
       {
-        form
+        form,
       },
       () => {
         getAnimalsList(form).then((animals) => {
           this.setState({ animals });
         });
-      }
+      },
     );
-  };
+  }
 }
 
 export default AnimalList;
