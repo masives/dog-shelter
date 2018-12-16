@@ -1,0 +1,39 @@
+version: '3.5'
+
+services:
+  node:
+    build: ./docker/node
+    volumes:
+      - .:/app
+    networks:
+      - shelter
+    ports:
+      - 3000:3000
+
+  mongo:
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    image: mongo:3.2
+    volumes:
+      - './data/mongo:/data/db'
+    networks:
+      - shelter
+  
+  mongo_express:
+    env_file:
+      - .env
+    image: library/mongo-express:latest
+    environment:
+      - ME_CONFIG_MONGODB_PORT=${MONGODB_PORT_NUMBER}
+      - ME_CONFIG_MONGODB_SERVER=${MONGO_SERVICE_HOST}
+    networks:
+      - shelter
+    ports:
+      - ${MONGO_EXPRESS_PORT}:8081
+    depends_on:
+      - mongo
+
+networks:
+  shelter:
+    name: shelter

@@ -4,13 +4,11 @@ import * as mongoose from 'mongoose';
 const fileUpload = require('express-fileupload');
 import apiRouter from './api';
 
-const DATABASE_NAME = 'friends_shelter';
-
-const port: number = 3000;
+const {APPLICATION_PORT, MONGO_SERVICE_HOST, MONGODB_PORT_NUMBER, MONGO_DATABASE_NAME} = process.env;
 
 // connect to db
 mongoose.connect(
-  `mongodb://localhost/${DATABASE_NAME}`,
+  `mongodb://${MONGO_SERVICE_HOST}:${MONGODB_PORT_NUMBER}/${MONGO_DATABASE_NAME}`,
   { useNewUrlParser: true }
 );
 
@@ -38,5 +36,5 @@ app.use(
 // router
 app.use('/api', apiRouter);
 
-app.listen(port);
-console.log(`app started on port ${port}`);
+app.listen(APPLICATION_PORT, '0.0.0.0');
+console.log(`app started on port ${APPLICATION_PORT}`);
