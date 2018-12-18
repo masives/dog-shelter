@@ -1,10 +1,9 @@
-export default interface Animal {
-  id: string;
+export interface IAnimal {
   name: string;
-  race: string;
   age: number;
-  preferedPlace: string;
-  description: string;
+  race: string;
+  livingPlace: string;
   status: string;
-  photos: Array<string>;
+  photo: string;
+  description: string;
 }
