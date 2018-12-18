@@ -1,10 +1,10 @@
 import * as express from 'express';
-const bodyParser = require('body-parser');
 import * as mongoose from 'mongoose';
 const fileUpload = require('express-fileupload');
 import apiRouter from './api';
+import useParsers from './middleware/parsers';
 
-const {APPLICATION_PORT, MONGO_SERVICE_HOST, MONGODB_PORT_NUMBER, MONGO_DATABASE_NAME} = process.env;
+const { APPLICATION_PORT, MONGO_SERVICE_HOST, MONGODB_PORT_NUMBER, MONGO_DATABASE_NAME } = process.env;
 
 // connect to db
 mongoose.connect(
@@ -19,13 +19,7 @@ app.use(express.static('public'));
 app.use(express.static('uploads'));
 
 // parsers
-app.use(
-  bodyParser.urlencoded({
-    extended: true
-  })
-);
-app.use(bodyParser.json());
-
+useParsers(app);
 // file upload handling
 app.use(
   fileUpload({
