@@ -1,12 +1,12 @@
-import React from 'react';
-import { HashRouter, Link, Route } from 'react-router-dom';
+import * as React from 'react';
+import { BrowserRouter, Link, Route } from 'react-router-dom';
 import AnimalEdit from './components/AnimalEdit';
 import AnimalsList from './components/AnimalsList/index';
 
 const App = () => (
   <div>
     <header>Guben morgen</header>
-    <HashRouter>
+    <BrowserRouter>
       <section>
         <div>
           <Link to="/">Lista</Link>
@@ -15,7 +15,7 @@ const App = () => (
         <Route path="/" exact={true} component={AnimalsList} />
         <Route path="/animals/:id" exact={true} component={AnimalEdit} />
       </section>
-    </HashRouter>
+    </BrowserRouter>
   </div>
 );
 
