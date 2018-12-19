@@ -9,7 +9,7 @@ USER_ID = `id -u $$USER`
 args = `arg="$(filter-out $@,$(MAKECMDGOALS))" && echo $${arg:-${1}}`
 
 client:
-	docker-compose run  -u "$(USER_ID)" --name "shelter_client" --rm node yarn dev:client
+	docker-compose run  -u "$(USER_ID)" --name "shelter_client" --rm -p 8888:8888 node yarn dev:client
 
 server:
 	docker-compose run  -u "$(USER_ID)" --name "shelter_server" --rm node yarn dev:server:watch
