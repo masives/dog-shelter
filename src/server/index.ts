@@ -1,6 +1,5 @@
 import * as express from 'express';
 import * as mongoose from 'mongoose';
-const fileUpload = require('express-fileupload');
 import apiRouter from './api';
 import useFileUpload from './middleware/fileUpload';
 import useParsers from './middleware/parsers';
@@ -13,7 +12,7 @@ mongoose.connect(
   { useNewUrlParser: true }
 );
 
-const app = express();
+const app: express.Express = express();
 
 // website serving
 app.use(express.static('public'));
