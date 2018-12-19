@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as mongoose from 'mongoose';
+import path from 'path';
 import apiRouter from './api';
 import useFileUpload from './middleware/fileUpload';
 import useParsers from './middleware/parsers';
@@ -24,6 +25,11 @@ useFileUpload(app);
 
 // router
 app.use('/api', apiRouter);
+app.get('*', (req, res) => {
+  const indexPath = path.resolve('public/index.html');
+  console.log(indexPath);
+  res.sendFile(indexPath);
+});
 
 app.listen(APPLICATION_PORT, '0.0.0.0');
 console.log(`app started on port ${APPLICATION_PORT}`);

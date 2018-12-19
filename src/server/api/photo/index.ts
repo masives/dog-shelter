@@ -5,7 +5,7 @@ const path = require('path');
 
 const STORED_FILES_DIRECTORY = '/uploads/';
 
-const  ensureDirectoryExistence = (filePath) => {
+const ensureDirectoryExistence = (filePath) => {
   const dirname = path.dirname(filePath);
   if (fs.existsSync(dirname)) {
     return true;
@@ -34,7 +34,7 @@ apiRouter.route('/').post((req: any, res, next) => {
     if (err) {
       return res.status(500).send(err);
     }
-    res.send(filepath);
+    res.send(`/${filepath}`);
   });
 });
 
