@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as mongoose from 'mongoose';
 const fileUpload = require('express-fileupload');
 import apiRouter from './api';
+import useFileUpload from './middleware/fileUpload';
 import useParsers from './middleware/parsers';
 
 const { APPLICATION_PORT, MONGO_SERVICE_HOST, MONGODB_PORT_NUMBER, MONGO_DATABASE_NAME } = process.env;
@@ -20,12 +21,7 @@ app.use(express.static('uploads'));
 
 // parsers
 useParsers(app);
-// file upload handling
-app.use(
-  fileUpload({
-    safeFileNames: true
-  })
-);
+useFileUpload(app);
 
 // router
 app.use('/api', apiRouter);
