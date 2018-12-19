@@ -1,19 +1,22 @@
 import * as React from 'react';
 
+const login = (event) => {
+  event.preventDefault();
+  const user = {
+    password: event.target[1].value,
+    username: event.target[0].value,
+  };
+  const request = new Request('api/auth/login', {
+    body: JSON.stringify(user),
+    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    method: 'POST',
+  });
+  fetch(request);
+};
+
 const Login = () => (
   <div>
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        console.log(event.target[0].value);
-        const user = { username: event.target[0].value, password: event.target[0].value };
-        fetch('api/login', {
-          body: user,
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json; charset=utf-8' }
-        });
-      }}
-    >
+    <form onSubmit={login}>
       <label htmlFor="username">
         username
         <input type="text" id="username" />

@@ -27,7 +27,6 @@ useFileUpload(app);
 app.use('/api', apiRouter);
 app.get('*', (req, res) => {
   const indexPath = path.resolve('public/index.html');
-  console.log(indexPath);
   res.sendFile(indexPath);
 });
 
