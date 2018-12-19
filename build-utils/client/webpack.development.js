@@ -1,5 +1,6 @@
 const webpack = require('webpack');
-const WebpackBundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const WebpackBundleAnalyzer = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -8,7 +9,7 @@ module.exports = {
   entry: './src/client/entry.tsx',
   output: {
     path: path.join(__dirname, '../../dist/public'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -16,22 +17,22 @@ module.exports = {
         enforce: 'pre',
         test: /\.(ts|tsx)$/,
         loader: 'tslint-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(ts|tsx)$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.json']
+    extensions: ['.ts', '.tsx', '.js', '.json'],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html'
+      template: './index.html',
     }),
-    new WebpackBundleAnalyzer({ openAnalyzer: false })
-  ]
+    new WebpackBundleAnalyzer({ openAnalyzer: false, analyzerHost: '0.0.0.0' }),
+  ],
 };
