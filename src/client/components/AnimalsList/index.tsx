@@ -112,7 +112,7 @@ class AnimalList extends React.Component<null, IState> {
         form,
       },
       () => {
-        getAnimalsList(form).then((animals) => {
+        getAnimalsList(form).then((animals: IAnimal[]) => {
           this.setState({ animals });
         });
       }

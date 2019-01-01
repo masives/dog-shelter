@@ -1,9 +1,11 @@
 import axios from 'axios';
 
-export const getAnimalsList = () =>
+export const getAnimalsList = (params = {}) =>
   new Promise((resolve, reject) => {
     axios
-      .get('http://localhost:3000/api/animals')
+      .get('http://localhost:3000/api/animals', {
+        params,
+      })
       .then((response) => {
         resolve(response.data);
       })
