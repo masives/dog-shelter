@@ -5,7 +5,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  devtool: 'cheap-eval-source-map',
+  devtool: 'source-map',
   entry: './src/client/entry.tsx',
   output: {
     path: path.join(__dirname, '../../dist/public'),
