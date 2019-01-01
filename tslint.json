@@ -1,15 +1,13 @@
 {
-    "defaultSeverity": "error",
-    "extends": [
-        "tslint:recommended",
-        "tslint-react"
-    ],
-    "jsRules": {},
-    "rules": {
-        "jsx-wrap-multiline": false,
-        "jsx-no-lambda": false,
-        "quotemark":false,
-        "trailing-comma": true
-    },
-    "rulesDirectory": []
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended", "tslint-react"],
+  "jsRules": {},
+  "rules": {
+    "jsx-wrap-multiline": false,
+    "jsx-no-lambda": false,
+    "quotemark": false,
+    "trailing-comma": true,
+    "jsx-no-multiline-js": false
+  },
+  "rulesDirectory": []
 }

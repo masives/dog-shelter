@@ -1,8 +1,8 @@
 import * as express from 'express';
 import * as jwt from 'jsonwebtoken';
-import { DAY_IN_SECONDS } from '../../../../../constants';
-import { comparePassword } from '../../../utilities/crypto';
-import { findUserByUsername } from '../../users/repository';
+import { DAY_IN_SECONDS } from '../../../../constants';
+import { comparePassword } from '../../utilities/crypto';
+import { findUserByUsername } from '../users/repository';
 
 const { JWT_SECRET } = process.env;
 const authRouter = express.Router();

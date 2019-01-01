@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { IAnimal } from '../../../../types/Animal';
 import { getAnimalsList, removeAnimal } from '../../resources/animalsApi';
 import FormElementsFactory from '../FormElements';
 import FORM_SCHEMA from './FormSchema';
@@ -13,9 +14,18 @@ const getFormElement = (input, onChange, error, value) => (
     value={value}
   />
 );
+interface IState {
+  animals: IAnimal[];
+  form: {
+    name?: string;
+    age?: number;
+    race?: string;
+    status?: string;
+  };
+}
 
-class AnimalList extends React.Component {
-  private state = {
+class AnimalList extends React.Component<null, IState> {
+  public state = {
     animals: [],
     errors: {},
     form: {},
@@ -32,7 +42,14 @@ class AnimalList extends React.Component {
       <div>
         <h2>Filtry</h2>
         <form>
-          {FORM_SCHEMA.map((input) => getFormElement(input, onChange, errors[input.fieldName], form[input.fieldName]))}
+          {FORM_SCHEMA.map((input) =>
+            getFormElement(
+              input,
+              onChange,
+              errors[input.fieldName],
+              form[input.fieldName]
+            )
+          )}
         </form>
         <h1>Lista zwierzaków</h1>
         <table>
@@ -57,7 +74,10 @@ class AnimalList extends React.Component {
                 <td>{animal.status || ''}</td>
                 <td>
                   <Link to={`/animals/${animal._id}`}>Detale</Link>
-                  <button type="submit" onClick={() => onRemoveAnimal(animal._id)}>
+                  <button
+                    type="submit"
+                    onClick={() => onRemoveAnimal(animal._id)}
+                  >
                     remove
                   </button>
                 </td>
@@ -69,19 +89,23 @@ class AnimalList extends React.Component {
     );
   }
 
-  private componentDidMount() {
+  public componentDidMount() {
     this.updateAnimalsList();
   }
 
   private updateAnimalsList = () => {
-    getAnimalsList().then((animals) => {
-      this.setState({ animals });
-    });
+    getAnimalsList()
+      .then((animals: IAnimal[]) => {
+        this.setState({ animals });
+      })
+      .catch((error) => {
+        // takie przenoszenie przy 401 powinno być wyżej w jakimś globalnym error handlerze
+        window.location.href = '/login';
+      });
   }
 
   private onChange = (formValue, fieldName) => {
     const { form } = this.state;
-
     form[fieldName] = formValue;
     this.setState(
       {
@@ -91,7 +115,7 @@ class AnimalList extends React.Component {
         getAnimalsList(form).then((animals) => {
           this.setState({ animals });
         });
-      },
+      }
     );
   }
 }
