@@ -19,5 +19,5 @@ const {
     username: ADMIN_USERNAME,
   });
   console.log('seeded users: ', seededUsers);
-  console.log('script working');
+  process.exit(0);
 })();
