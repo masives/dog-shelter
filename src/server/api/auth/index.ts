@@ -11,7 +11,6 @@ authRouter.route('/login').post(async (req, res, next) => {
   const { username, password } = req.body;
   const user = await findUserByUsername(username);
   if (user) {
-    // TODO check encrypted password
     const isPasswordMatching = comparePassword(password, user.password);
     if (!isPasswordMatching) {
       res.sendStatus(401);
