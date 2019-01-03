@@ -22,3 +22,6 @@ up: ## start containers
 
 down: ## remove containers
 	docker-compose down --remove-orphans
+
+seed: ## seed database
+	docker-compose run  -u "$(USER_ID)" --name "shelter_seed" --rm node yarn seed
