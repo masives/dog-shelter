@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+const { HASH_SALT_ROUNDS } = process.env;
 
 export const hashPassword = (password) => {
   const salt = bcrypt.genSaltSync(10);

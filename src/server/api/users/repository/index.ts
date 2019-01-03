@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import * as uniqueValidator from 'mongoose-unique-validator';
-import { hashPassword } from '.,./../../../../utilities/crypto';
+import { hashPassword } from '../../../utilities/crypto';
 interface IUser {
   username: string;
   password: string;
