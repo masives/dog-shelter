@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 const { HASH_SALT_ROUNDS } = process.env;
 
 export const hashPassword = (password) => {
