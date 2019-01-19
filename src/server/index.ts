@@ -3,6 +3,7 @@ import * as mongoose from 'mongoose';
 import path from 'path';
 import apiRouter from './api';
 import authRouter from './api/auth';
+import { graphQLRouter } from './graphql';
 import useAuthentication from './middleware/authentication';
 import useFileUpload from './middleware/fileUpload';
 import useParsers from './middleware/parsers';
@@ -38,8 +39,10 @@ useAuthentication(app);
 
 // website serving
 app.use(express.static('uploads'));
+
 // router
 app.use('/api', apiRouter);
+graphQLRouter.applyMiddleware({ app });
 
 // send index if anything else (due to browser router)
 app.get('*', (req, res) => {
