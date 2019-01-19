@@ -11,7 +11,11 @@ const login = (event) => {
     headers: { 'Content-Type': 'application/json; charset=utf-8' },
     method: 'POST',
   });
-  fetch(request).then(() => (window.location.href = '/'));
+  fetch(request).then((response) => {
+    if (response.ok) {
+      window.location.href = '/';
+    }
+  });
 };
 
 const Login = () => (
