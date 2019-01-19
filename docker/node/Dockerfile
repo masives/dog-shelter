@@ -1,5 +1,5 @@
 # Use an official Python runtime as a parent image
-FROM node:8.14.0-jessie
+FROM node:alpine
 
 # Set the working directory to /app
 WORKDIR /app
