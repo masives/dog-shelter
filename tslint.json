@@ -7,7 +7,9 @@
     "jsx-no-lambda": false,
     "quotemark": false,
     "trailing-comma": true,
-    "jsx-no-multiline-js": false
+    "jsx-no-multiline-js": false,
+    "ordered-imports": true,
+    "member-ordering": true
   },
   "rulesDirectory": []
 }
