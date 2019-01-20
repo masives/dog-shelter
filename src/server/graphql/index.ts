@@ -2,6 +2,7 @@ import { ApolloServer, gql } from 'apollo-server-express';
 import { GraphQLSchema } from 'graphql';
 import { makeExecutableSchema, mergeSchemas } from 'graphql-tools';
 import merge from 'lodash/merge';
+import AnimalsSchema from './animals';
 
 const baseSchema = gql`
   type Query {
@@ -20,7 +21,9 @@ const helloSchema = makeExecutableSchema({
   typeDefs: [baseSchema],
 });
 
-const schema: GraphQLSchema = mergeSchemas({ schemas: [helloSchema] });
+const schema: GraphQLSchema = mergeSchemas({
+  schemas: [helloSchema, AnimalsSchema],
+});
 
 export const graphQLRouter = new ApolloServer({
   context: ({ req }) => ({
