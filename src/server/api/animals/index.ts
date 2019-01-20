@@ -75,7 +75,7 @@ apiRouter
   .put((req, res) => {
     const update = req.body;
     const { id } = req.params;
-    updateAnimal(update, id)
+    updateAnimal(id, update)
       .then((animal) => {
         res.status(200).send(animal);
       })
