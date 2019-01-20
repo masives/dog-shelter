@@ -1,4 +1,6 @@
+import gql from 'graphql-tag';
 import * as React from 'react';
+import { Query } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { IAnimal } from '../../../../types/Animal';
 import { getAnimalsList, removeAnimal } from '../../resources/animalsApi';
@@ -23,6 +25,69 @@ interface IState {
     status?: string;
   };
 }
+
+const DogsList = () => (
+  <Query
+    query={gql`
+      {
+        animals: getAnimals {
+          id
+          name
+          age
+          description
+          race
+          status
+        }
+      }
+    `}
+  >
+    {({ loading, error, data, refetch }) => {
+      if (loading) {
+        return <p>Loading...</p>;
+      }
+      if (error) {
+        return <p>Error :(</p>;
+      }
+      return (
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              {/* <th>Img</th> */}
+              <th>Age</th>
+              <th>Description</th>
+              <th>Race</th>
+              <th>Status</th>
+              <th>Akcje</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.animals.map(
+              ({ id, name, age, description, race, status }: IAnimal) => (
+                <tr key={id}>
+                  <td>{name || ''}</td>
+                  <td>{age || ''}</td>
+                  <td>{description || ''}</td>
+                  <td>{race || ''}</td>
+                  <td>{status || ''}</td>
+                  <td>
+                    <Link to={`/animals/${id}`}>Detale</Link>
+                    <button
+                      type="submit"
+                      onClick={() => removeAnimal(id).then(() => refetch())}
+                    >
+                      remove
+                    </button>
+                  </td>
+                </tr>
+              )
+            )}
+          </tbody>
+        </table>
+      );
+    }}
+  </Query>
+);
 
 class AnimalList extends React.Component<null, IState> {
   public state = {
@@ -52,39 +117,7 @@ class AnimalList extends React.Component<null, IState> {
           )}
         </form>
         <h1>Lista zwierzaków</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              {/* <th>Img</th> */}
-              <th>Age</th>
-              <th>Description</th>
-              <th>Race</th>
-              <th>Status</th>
-              <th>Akcje</th>
-            </tr>
-          </thead>
-          <tbody>
-            {animals.map((animal) => (
-              <tr key={animal._id}>
-                <td>{animal.name || ''}</td>
-                <td>{animal.age || ''}</td>
-                <td>{animal.description || ''}</td>
-                <td>{animal.race || ''}</td>
-                <td>{animal.status || ''}</td>
-                <td>
-                  <Link to={`/animals/${animal._id}`}>Detale</Link>
-                  <button
-                    type="submit"
-                    onClick={() => onRemoveAnimal(animal._id)}
-                  >
-                    remove
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <DogsList />
       </div>
     );
   }

@@ -1,4 +1,5 @@
 export interface IAnimal {
+  id?: string;
   name: string;
   age: number;
   race: string;

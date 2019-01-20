@@ -27,7 +27,8 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.json'],
+    // mjs is for errors thrown by apollo client
+    extensions: ['.mjs', '.ts', '.tsx', '.js', '.json'],
   },
   plugins: [
     new HtmlWebpackPlugin({
