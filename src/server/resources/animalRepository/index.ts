@@ -3,7 +3,11 @@ import * as uniqueValidator from 'mongoose-unique-validator';
 import { IAnimal } from '../../../../types/Animal';
 
 export interface IAnimalModel extends mongoose.Document, IAnimal {}
-type  IAnimalDocumentQuery = mongoose.DocumentQuery < IAnimalModel, IAnimalModel, {};    > {};
+type IAnimalDocumentQuery = mongoose.DocumentQuery<
+  IAnimalModel,
+  IAnimalModel,
+  {}
+>;
 
 const AnimalSchema: mongoose.Schema = new mongoose.Schema({
   age: {
@@ -60,9 +64,7 @@ export const updateAnimal = (
 ): IAnimalDocumentQuery =>
   AnimalModel.findByIdAndUpdate(id, update, { new: true });
 
-export const removeAnimal = (
-  id: string
-): IAnimalDocumentQuery =>
+export const removeAnimal = (id: string): IAnimalDocumentQuery =>
   AnimalModel.findByIdAndRemove(id);
 
 export default AnimalModel;
