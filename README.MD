@@ -2,16 +2,19 @@ The reason for this project is to learn express.js while creating CMS for animal
 
 #Functionalities
 
-- list all animals
-- add animal
-- delete
-- filter
-- sort
-- change status (up for grabs, taken)
-- handle contact form
+* [x] list all animals
+* [x] add animal
+* [x] delete
+* [x] filter
+* [ ]- sort
+* [x] handle contact form
 
 #Technologies
 
 - express.js
 - typescript
 - webpack
+- react
+- mongo
+- docker
+- graphql
