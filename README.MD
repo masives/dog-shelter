@@ -1,3 +1,5 @@
+Project currently closed, so further development planned. I've learned what I wanted and no longer feel motivation to go on.
+
 The reason for this project is to learn express.js while creating CMS for animal shelters. Later in the project I will create frontend for site.
 
 #Functionalities
